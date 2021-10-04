@@ -45,7 +45,7 @@ En este documento se desarrola un plan tentativo que abarca las historias de usu
 
 
 ### Comunes
-1. Como usuario quiero poder registrarme en el sistema de manera tal que sea de conocimiento quién realiza ciertas tareas. 
+1. Como usuario quiero poder ingresar en el sistema para poder hacer uso de las funcionalidades del sistema
 2. Como sistema, es deseable que los usuarios unicamente tengan acceso a datos/funcionalidades concorde a su nivel de privilegios. 
 
 ___
@@ -75,8 +75,8 @@ ___
 |E8 | |
 |E9 | |
 |E12 | |
-|C1 | |
-|C2 | |
+| | |C1 |
+| | |C2 |
 
 ## Iteración 1
 
