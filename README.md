@@ -1,8 +1,7 @@
 # Sistema de Reservas de Habitaciones
 
 Este repositorio contiene el trabajo integrador refererido a la cátegra Programación Orientada a Objetos II de la carrera de Licenciatura en Sistemas.
-Dicho sistema cumplirá el propósito de reservar habitaciones en un hotel para diferentes huespedes permitiendo la carga de los datos de este último como
-tambien la carga de habitaciones, empleados, tipos de habitaciones, etc.
+Dicho sistema cumplirá el propósito de reservar habitaciones en un complejo de cabañas para diferentes huespedes permitiendo la carga de los datos de este último como tambien la carga de habitaciones, empleados, tipos de habitaciones, etc.
 <br>
 A continuación se detallan las tecnologias a usar: 
 
