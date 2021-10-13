@@ -11,4 +11,5 @@ A continuación se detallan las tecnologias a usar:
 - **PostgreSQL** como motor de base de datos. 
 
 *Aclaración: En el trascurso de la programación del sistema probablemente se agreguen (o no) otras tecnologías que luego serán reflejadas en este readme.*
+hola mundo
 
