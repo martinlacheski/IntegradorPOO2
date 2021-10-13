@@ -19,7 +19,7 @@ Dichas historias de usuario conforman un ABM básico de una habitación como as�
 ## Trabajo en equipo y Tareas
 Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo cada columna un miembro del equipo.
 
-| Quiroga Leonardo | Martin Lacheski | Jolu ?|
+| Quiroga Leonardo | Martin Lacheski | Jose Luis Montejano|
 | -----------| ------------------|-----------------|
 | Elaborar la clase Habitación. | Establecer conexión desde el entorno de desarrollo de Java a la BD (librerías, configuraciones, etc). | Creación de formulario inicial para el alta de la habitación.
 | Codificación de lógica en capa de negocio para captar datos desde el cliente| Codificación de lógica en capa de modelos para almacenar los datos captados en capa de negocio | Codificación de controles en el formulario para depuración de datos (campos con números que solamente acepten números, etc) |
