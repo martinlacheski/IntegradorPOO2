@@ -29,25 +29,25 @@ Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo c
 
 ## Diseño OO
 
-![alt text](Diagrama_clases_Iteración_1.png)
+![alt text](../img/Diagrama_clases_Iteración_1.png)
 
 
 ## WireFrame
 
 - Lista de habitaciones *(refleja tambien tipos de habitaciones)*
-![alt text](./img/principal_habitaciones.png)
+![alt text](../img/principal_habitaciones.png)
 
 - Agregar Habitación <br>
-![alt text](./img/agregar_habitacion.png)
+![alt text](../img/agregar_habitacion.png)
 
 - Modificar Habitación <br>
-![alt text](./img/modificar_habitacion.png)
+![alt text](../img/modificar_habitacion.png)
 
 - Eliminar Habitación <br>
-![alt text](./img/eliminar_habitacion.png)
+![alt text](../img/eliminar_habitacion.png)
 
 - Agregar Tipo de Habitación <br>
-![alt text](./img/agregar_tipo_habitacion.png)
+![alt text](../img/agregar_tipo_habitacion.png)
 
 
 ## Casos de Uso
