@@ -8,7 +8,7 @@ A continuación se detallan las tecnologias a usar:
 - **JSP** (JavaServer Pages) para front-end.
 - **Boostrap** y **Jquery** para hacer uso de plantillas pre-diseñadas.
 - **JPA** (Java Persistence API) para la persistencia de datos.Z
-- **PostgreSQL** como motor de base de datos. 
+- **MySQL** como motor de base de datos. 
 
 *Aclaración: En el trascurso de la programación del sistema probablemente se agreguen (o no) otras tecnologías que luego serán reflejadas en este readme.*
 
