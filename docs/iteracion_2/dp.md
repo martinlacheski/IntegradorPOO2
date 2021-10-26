@@ -10,13 +10,12 @@ Conforme a lo que respecta la iteración 2, se han elegido las siguientes histor
 **G8**: Como gerente quiero poder asociar una habitación a un tipo de habitación para poder clasificarlas. <br>
 **G9**: Como gerente quiero poder eliminar un tipo de habitación en caso de que este no se utilice más.  <br>
 **G10**: Como gerente quiero poder listar los tipos de habitaciones que tenga registradas para poder verlas rápidamente.<br>
+**A1**: Como administrador, quiero poder crear nuevos usuarios en el sistema de manera tal que si un Gerente o Empleado no tiene usuario, no pueda usar el sistema. <br>
+**A2**: Como Administrador, quiro poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajor.<br>
 **G12**: Como gerente, quiero poder agregar a nuevos empleados para poder registrar a quienes trabajan en el establecimiento.<br>
 **G13**: Como gerente, quiero poder modificar los datos de empleados ya registrados llegado al caso que se carguen incorrectamente o los mismos cambien sus datos personales.<br>
 **G14**: Como gerente, quiero poder dar de baja a empleados registrados llegado al caso de que dejen de trabajar en el establecimiento.<br>
 **G15**: Como gerente, quiero poder visualizar una lista de los empleados que se tienen registrados para poder ver rápidamente quienes conforman el equipo de trabajo actual<br>
-**E7**: Como empleado quiero poder agregar nuevos huspedes de manera tal que se pueda tener un registro de los mismos. 
-**E10**: Como empleado quiero poder obtener un listado de todos los huespedes registrados en el sistema hasta la fecha actual.
-
 
 ## Trabajo en equipo y Tareas
 Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo cada columna un miembro del equipo.
