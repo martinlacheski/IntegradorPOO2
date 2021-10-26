@@ -9,12 +9,12 @@ En este documento se desarrola un plan tentativo que abarca las historias de usu
 ## Historias de usuarios
 
 ### Gerente
-1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. 
-2. Como gerente, quiero poder eliminar una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. 
-3. Como gerente, quiero poder modificar los datos de una habitación en caso de que las mismas sufran cambios dentro del establecimiento. 
+1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. **(lista)**
+2. Como gerente, quiero poder eliminar una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. **(lista)**
+3. Como gerente, quiero poder modificar los datos de una habitación en caso de que las mismas sufran cambios dentro del establecimiento. **(lista)**
 4. Como gerente, quiero poder obtener un listado de las habitaciones ocupadas para poder ver rápidamente a qué capacidad está el establecimiento
 5. Como gerente, quiero poder obtener un listado de las habitaciones disponibles para poder rápidamente asignarlas a nuevos huespedes. 
-6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones sean clasificables.
+6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones sean clasificables. **(lista)**
 7. Como gerente, quiero poder modificar tipos de habitaciones llegado al caso de que las características de éstas varíen en el tiempo. 
 8. Como gerente quiero poder asociar una habitación a un tipo de habitación para poder clasificarlas.
 9. Como gerente quiero poder eliminar un tipo de habitación en caso de que este no se utilice más. 
