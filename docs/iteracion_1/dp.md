@@ -1,8 +1,5 @@
 # Documento de diseño y planificación 
-Este documento posee el diseño y la planificación tentativa para el desarrollo del sistema a lo largo de las diferentes iteraciones.
-
-
-## ITERACIÓN 1
+Este documento posee el diseño y la planificación tentativa para el desarrollo del sistema a lo largo de la iteración 1.
 
 **Lider de la iteración**: Quiroga, Hugo Leonardo.
 
@@ -79,8 +76,3 @@ Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo c
     - El sistema despliega un formulario tipo modal con los datos necesarios para un tipo de habitación.
     - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Tipo Habitación".
     - El sistema esconde el modal y actualiza la página para que la nueva habitación se vea reflejada en el listado.
-
-## Retrospectiva
-
-En el caso de esta iteración 1 lo que costó fué adaptar los conocimientos previos basados en la tecnología Ant conforme a lo requerido por la cátedra en la cual se recomienda fuertemente Maven. Al incorporar ésta última precisamente se abarcaron los problemas sobre cómo agregar dependencias al proyecto (lo cual acostumbrabamos hacer manualmente). Repecto al front-end, simplemente hubo debates sobre cómo quedaría la interfaz de cara al usuario. <br>
-Para la siguiente iteración incorporaremos un manejo más ágil respecto al tratado de dependencias y tambien a la cantidad de historias de usuario. 
