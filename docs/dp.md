@@ -1,5 +1,5 @@
 # Documento de diseño y planificación 
-Este documento posee el diseo y la planificación tentativa para el desarrollo del sistema a lo largo de las diferentes iteraciones.
+Este documento posee el diseño y la planificación tentativa para el desarrollo del sistema a lo largo de las diferentes iteraciones.
 
 
 ## ITERACIÓN 1
