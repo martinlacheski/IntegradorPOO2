@@ -11,9 +11,10 @@ En este documento se desarrola un plan tentativo que abarca las historias de usu
 ### Administrador
 
 1. Como administrador, quiero poder crear nuevos usuarios en el sistema de manera tal que si un Gerente o Empleado no tiene usuario, no pueda usar el sistema. 
-2. Como administrador, quiero poder modificar los datos de los usuarios en el sistema en caso de que los Empleados o Gerentes se olviden, pierdan o comprometan sus contraseñas o nombre de usuario.
-3. Como administrador, quiero poder dar de baja a un usuario del sistema de manera tal que pueda revocar completo acceso a dicho Empleado/Gerente asociado al usuario en cuestión.
-4. Como administrador, quiero poder visualizar una lista de los usuarios que se tienen registrados para poder ver rápidamente a los que se tienen registrados. Dicha lista debe tener a qué empleado o Gerente está asociado cada usuario.   
+2. Como Administrador, quiro poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajor.
+3. Como administrador, quiero poder modificar los datos de los usuarios en el sistema en caso de que los Empleados o Gerentes se olviden, pierdan o comprometan sus contraseñas o nombre de usuario.
+4. Como administrador, quiero poder dar de baja a un usuario del sistema de manera tal que pueda revocar completo acceso a dicho Empleado/Gerente asociado al usuario en cuestión.
+5. Como administrador, quiero poder visualizar una lista de los usuarios que se tienen registrados para poder ver rápidamente a los que se tienen registrados. Dicha lista debe tener a qué empleado o Gerente está asociado cada usuario.   
 
 ### Gerente
 1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. **(lista)**

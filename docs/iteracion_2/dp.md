@@ -17,7 +17,6 @@ Conforme a lo que respecta la iteración 2, se han elegido las siguientes histor
 **G14**: Como gerente, quiero poder dar de baja a empleados registrados llegado al caso de que dejen de trabajar en el establecimiento.<br>
 **G15**: Como gerente, quiero poder visualizar una lista de los empleados que se tienen registrados para poder ver rápidamente quienes conforman el equipo de trabajo actual<br>
 
-
 ## Trabajo en equipo y Tareas
 Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del equipo.
 
@@ -56,13 +55,13 @@ Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del
 ## Casos de Uso
 *(Se omiten casos de uso asociados a Tipo de Habitación debido a su gran semenjanza con los casos de uso de habitaciones, ademas de compartir la mayoría de los elementos gráficos)*
 
-1. Agregar una Habitación
+1. Agregar una Empleado
     - El usuario visita la página web y se dirige a la sección de Empleados, haciendo clic en el dropbox de Administación > Gestión de Empleados.
     - El sistema lo redirecciona a la pantalla apropiada.
     - El usuario hace clic en el botón "Agregar Nuevo Empleado". 
     - El sistema despliega un formulario tipo modal con los datos necesarios para un Empleado.
     - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Empleado".
-    - El sistema esconde el modal y actualiza la página para que la nueva habitación se vea reflejada en el listado.
+    - El sistema esconde el modal y actualiza la página para que el nuevo empleado se vea reflejado en el listado.
 
 2. Modificar un Empleado
     - El usuario, en la sección de Empleados, hace clic en el botón de edición que se encuentra en cada renglón el cual representa un Empleado cargado.
@@ -82,4 +81,4 @@ Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del
     - El usuario hace clic en el botón "Agregar Nuevo Usuario". 
     - El sistema despliega un formulario tipo modal con los datos necesarios para un Usuario.
     - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Usuario".
-    - El sistema esconde el modal y actualiza la página para que la nueva habitación se vea reflejada en el listado.
+    - El sistema esconde el modal y actualiza la página para que el nuevo usuario se vea reflejada en el listado.
