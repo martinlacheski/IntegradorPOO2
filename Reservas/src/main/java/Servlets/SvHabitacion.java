@@ -24,7 +24,6 @@ public class SvHabitacion extends HttpServlet {
     Gson gson = new Gson();
     List<String> respuestaAjax = new ArrayList<>();
     
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -47,10 +46,20 @@ public class SvHabitacion extends HttpServlet {
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(gson.toJson(habObj));
             }
-            
+        }
+        
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        
+        if (ajax) {
+            String action = request.getParameter("action");
             // Obtiene idObj, lo elimina y devuelve el link hacia donde ir.
             if ("delete".equals(action)) {
-                System.out.println("dentro de if");
                 int nroHab = Integer.parseInt(request.getParameter("id_habitacion"));
                 try {
                     Cl.eliminarObjetoHabitacion(nroHab);
@@ -62,10 +71,9 @@ public class SvHabitacion extends HttpServlet {
                 }
             }
             
-            /* Obtiene id_obj y sus campos ocmplementarios, lo modifica y almacena.
-               Devuelve el link hacia donde ir. */
+            /* Obtiene id_obj y sus campos complementarios, lo modifica y almacena.
+            Devuelve el link hacia donde ir. */
             if ("edit".equals(action)){
-                System.out.println("se ejecuta");
                 int IdHabitacion = Integer.parseInt(request.getParameter("nroHabitacion"));
                 String pisoHabitacion = request.getParameter("pisoHabitacion");
                 String tipoHabitacion = request.getParameter("tipoHabitacion");
@@ -82,21 +90,6 @@ public class SvHabitacion extends HttpServlet {
                 }
             }
         } else {
-            System.out.println("mmm");
-        }
-        
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
-        
-        if (ajax) {
-            
-            
-        } else {
             // Crea el objeto habitación y lo almacena
             int IdHabitacion = Integer.parseInt(request.getParameter("nroHabitacion"));
             String pisoHabitacion = request.getParameter("pisoHabitacion");
@@ -104,8 +97,9 @@ public class SvHabitacion extends HttpServlet {
             int precionoche = Integer.parseInt(request.getParameter("precioNocheHabitacion"));
             TipoHabitacion tipoHabObj = Cl.obtenerTipoHabitacion(tipoHabitacion);
             Cl.crearObjetoHabitacion(IdHabitacion, pisoHabitacion, tipoHabObj, precionoche);
+            response.sendRedirect("/Reservas/GESTION/LIST/Habitaciones.jsp");
         }
-        response.sendRedirect("/Reservas/GESTION/LIST/Habitaciones.jsp");
+        
     }
     
     @Override

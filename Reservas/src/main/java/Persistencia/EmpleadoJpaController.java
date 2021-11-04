@@ -1,6 +1,7 @@
 package Persistencia;
 
-import Logica.Habitacion;
+import Logica.Cargo;
+import Logica.Empleado;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -13,13 +14,13 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public class HabitacionJpaController implements Serializable {
+public class EmpleadoJpaController implements Serializable {
 
-    public HabitacionJpaController(EntityManagerFactory emf) {
+    public EmpleadoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public HabitacionJpaController() {
+    public EmpleadoJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
     private EntityManagerFactory emf = null;
@@ -28,16 +29,16 @@ public class HabitacionJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Habitacion habitacion) throws PreexistingEntityException, Exception {
+    public void create(Empleado empleado) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(habitacion);
+            em.persist(empleado);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findHabitacion(habitacion.getNroHab()) != null) {
-                throw new PreexistingEntityException("Habitacion " + habitacion + " already exists.", ex);
+            if (findEmpleado(empleado.getDni()) != null) {
+                throw new PreexistingEntityException("Empleado " + empleado + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -47,19 +48,19 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public void edit(Habitacion habitacion) throws NonexistentEntityException, Exception {
+    public void edit(Empleado empleado) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            habitacion = em.merge(habitacion);
+            empleado = em.merge(empleado);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = habitacion.getNroHab();
-                if (findHabitacion(id) == null) {
-                    throw new NonexistentEntityException("The habitacion with id " + id + " no longer exists.");
+                int id = empleado.getDni();
+                if (findEmpleado(id) == null) {
+                    throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -75,14 +76,14 @@ public class HabitacionJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Habitacion habitacion;
+            Empleado empleado;
             try {
-                habitacion = em.getReference(Habitacion.class, id);
-                habitacion.getNroHab();
+                empleado = em.getReference(Empleado.class, id);
+                empleado.getDni();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The habitacion with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.", enfe);
             }
-            em.remove(habitacion);
+            em.remove(empleado);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -91,19 +92,19 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public List<Habitacion> findHabitacionEntities() {
-        return findHabitacionEntities(true, -1, -1);
+    public List<Empleado> findEmpleadoEntities() {
+        return findEmpleadoEntities(true, -1, -1);
     }
 
-    public List<Habitacion> findHabitacionEntities(int maxResults, int firstResult) {
-        return findHabitacionEntities(false, maxResults, firstResult);
+    public List<Empleado> findEmpleadoEntities(int maxResults, int firstResult) {
+        return findEmpleadoEntities(false, maxResults, firstResult);
     }
 
-    private List<Habitacion> findHabitacionEntities(boolean all, int maxResults, int firstResult) {
+    private List<Empleado> findEmpleadoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Habitacion.class));
+            cq.select(cq.from(Empleado.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -115,20 +116,20 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public Habitacion findHabitacion(int id) {
+    public Empleado findEmpleado(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Habitacion.class, id);
+            return em.find(Empleado.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getHabitacionCount() {
+    public int getEmpleadoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Habitacion> rt = cq.from(Habitacion.class);
+            Root<Empleado> rt = cq.from(Empleado.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -136,5 +137,5 @@ public class HabitacionJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

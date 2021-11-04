@@ -1,6 +1,8 @@
 
 package Persistencia;
 
+import Logica.Cargo;
+import Logica.Empleado;
 import Logica.Habitacion;
 import Logica.TipoHabitacion;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -11,7 +13,8 @@ import java.util.logging.Logger;
 public class ControladoraPersistencia {
     static TipoHabitacionJpaController tipoHabJPA = new TipoHabitacionJpaController();
     static HabitacionJpaController habJPA = new HabitacionJpaController();
-    
+    static EmpleadoJpaController empJPA = new EmpleadoJpaController();
+    static CargoJpaController cargoJPA = new CargoJpaController();
     
     public ControladoraPersistencia() {
     }
@@ -35,6 +38,14 @@ public class ControladoraPersistencia {
         TipoHabitacion tipoHabitacionDesdeBD;
         tipoHabitacionDesdeBD = tipoHabJPA.findTipoHabitacion(tipoHabitacionID);
         return tipoHabitacionDesdeBD;
+    }
+    
+    public void eliminarTipoHabitacion(String tipoHabitacion) throws NonexistentEntityException {
+        tipoHabJPA.destroy(tipoHabitacion);
+    }
+    
+    public void editarTipoHabitacion(TipoHabitacion objTipohab) throws Exception {
+        tipoHabJPA.edit(objTipohab);
     }
     
     // HABITACION
@@ -65,4 +76,61 @@ public class ControladoraPersistencia {
     public void eliminarHabitacion(int idHab) throws NonexistentEntityException {
         habJPA.destroy(idHab);
     }
+    
+    // EMPLEADO
+    public void persistirEmpleado(Empleado objEmp) {
+        try {
+            empJPA.create(objEmp);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void bajaEmpleadoBd(Empleado objEmp) throws Exception {
+        empJPA.edit(objEmp);
+    }
+
+    public Empleado getEmpleado(int dni) {
+        Empleado empDesdeBD = empJPA.findEmpleado(dni);
+        return empDesdeBD;
+    }
+
+    public List getEmpleados() {
+        List<Empleado> EmpleadosDesdeBD = empJPA.findEmpleadoEntities();
+        return EmpleadosDesdeBD;
+    }
+
+    public void altaEmpleadoBd(Empleado objEmp) throws Exception {
+         empJPA.edit(objEmp);
+    }
+
+    public void editarEmpleado(Empleado objEmp) throws Exception {
+         empJPA.edit(objEmp);
+    }
+
+    
+    // CARGO
+    public void persistirCargo(Cargo objetoCargo) throws Exception {
+        cargoJPA.create(objetoCargo);
+    }
+
+    public Cargo getCargo(String nombre) {
+        Cargo cargoDesdeBD = cargoJPA.findCargo(nombre);
+        return cargoDesdeBD;
+    }
+
+    public List getCargos() {
+        List<Cargo> CargosDesdeBD = cargoJPA.findCargoEntities();
+        return CargosDesdeBD;
+    }
+
+    public void eliminarCargo(String nombre) throws NonexistentEntityException {
+         cargoJPA.destroy(nombre);
+    }
+
+    public void editarCargo(Cargo objCargo) throws Exception {
+         cargoJPA.edit(objCargo);
+    }
+    
+    
 }

@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="Logica.TipoHabitacion"%>
+<%@page import="Logica.ControladoraLogica"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es" charset="UTF-8">
@@ -13,11 +16,11 @@
             <!-- MODAL ADD TIPO HABITACIÓN -->
             <%@include file="../ADD/TipoHabitacionModalADD.jsp"%>
 
-            <!-- MODAL EDITAR HABITACION -->
-            <% // @include file="./HabitacionesModalEDIT.jsp"%>
+            <!-- MODAL EDITAR TIPO HABITACION -->
+            <%@include file="../EDIT/TipoHabitacionModalEDIT.jsp"%>
 
             <!-- MODAL ELIMINAR EMPLEADO -->
-            <%//@include file="./EmpleadosModalDELETE.jsp"%>
+            <%@include file="../DEL/TipoHabitacionModalDELETE.jsp"%>
 
 
             <!-- MAIN CONTENT -->
@@ -60,14 +63,27 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr id="" class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0">prueba</td>
-                                                        <td>prueba</td>
+                                                    <% 
+                                                       String nombreTipo = "";
+                                                       int capacidadPers = 0;
+                                                       ControladoraLogica Cl_tipo_hab_list = new ControladoraLogica();
+                                                       List<TipoHabitacion> listTipoHab = Cl_tipo_hab_list.listaTiposHabitaciones();
+                                                       for (TipoHabitacion tipoHab: listTipoHab){
+                                                           nombreTipo = tipoHab.getNombreHabitacion();
+                                                           capacidadPers = tipoHab.getCapacidadPersonas();
+                                                    %>
+                                                    <tr id="<%=nombreTipo%>" class="odd">
+                                                        <td class="dtr-control sorting_1" tabindex="0"><%=nombreTipo%></td>
+                                                        <td><%=capacidadPers%></td>
                                                         <td class="align-content-center">
-                                                            <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-lg-edit"><i class="far fa-edit"></i></button>
-                                                            <button type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#modal-lg-delete"><i class="far fa-trash-alt"></i></button>
+                                                            <button onclick="rellenarModalEdit('<%=nombreTipo%>')" type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-lg-edit"><i class="far fa-edit"></i></button>
+                                                            <button onclick="rellenarModalDelete('<%=nombreTipo%>')" type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#modal-lg-delete"><i class="far fa-trash-alt"></i></button>
                                                         </td>
-                                                    </tr>  
+                                                    </tr>
+                                                    <%
+                                                        }
+                                                        capacidadPers = 0;
+                                                    %>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -143,33 +159,68 @@
         </script>
 
         <script>
-            // Pasar valores desde la fila al modalEDIT
-            function rellenarModalEdit(numeroHabitacion) {
-                linea = $("#" + numeroHabitacion);
-                valoresAlModalEDIT(linea[0]);
+            function rellenarModalEdit(id_TipoHabitacion) {
+                $('#modal-lg-editar').modal('show');
+                $.ajax({
+                    url: '../../SvTipoHabitacion', // 
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        'id_tipo_habitacion': id_TipoHabitacion,
+                        'action': 'get_tipo_habitacion_data',
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        document.getElementById('tipoHabNombre_edit').setAttribute("value", data.nombreHabitacion);
+                        document.getElementById('capacidadPersonasTipo_edit').setAttribute("value", data.capacidadPersonas);
+                    }
+                });
             }
             
-            function valoresAlModalEDIT(elemento_TR) {
-                console.log(elemento_TR);
+            function rellenarModalDelete(tipoHabitacionId){
+                // Setea id de objeto en el botón de cerrar (modal DELETE)
+                buttonD = document.getElementById('buttonDelete');
+                buttonD.setAttribute("idObj", tipoHabitacionId); 
+                
+                // Genera mensaje de confirmación en modal DELETE y lo muestra
+                pElement = document.getElementById('formMensajeDELETE');
+                pElement.innerHTML = "¿Está seguro que desea eliminar el tipo de habitación '" + tipoHabitacionId +"'?";
+                $('#modal-lg-delete').modal('show');
             }
-        /*            
-        const valoresAUbicar = [];
-                    for (let j = 0; j <= 5; j++) {
-                        valoresAUbicar[j] = elemento_TR.children[j].innerHTML;
+            
+            
+            /* Función genérica de eliminación de objeto.
+               Invocada en botón "Eliminar" de modal DELETE */
+            function eliminarObjeto_tipHab(objID) {
+                $.ajax({
+                    url: '../../SvTipoHabitacion',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'id_tipo_habitacion': objID.getAttribute("idObj"),
+                        'action': 'delete',
+                    },
+                    success: function (data) {
+                        location.replace(data[0]);
                     }
-
-                    /* No se utiliza un bucle "for" porque se sabe 
-                     de antemano qué posiciones tiene cada input */
-                    /*
-                    formModal = $("#formModalEdit");
-                    formModal[0].children[1].setAttribute("value", valoresAUbicar[0]);
-                    formModal[0].children[4].setAttribute("value", valoresAUbicar[1]);
-                    formModal[0].children[7].setAttribute("value", valoresAUbicar[2]);
-                    formModal[0].children[10].setAttribute("value", valoresAUbicar[3]);
-                    formModal[0].children[13].setAttribute("value", valoresAUbicar[4]);
-                    formModal[0].children[16].setAttribute("value", valoresAUbicar[5]);
-                }
-        */
+                });
+            }
+            
+            function modificarObjeto(){
+                $.ajax({
+                    url: '../../SvTipoHabitacion', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'edit',
+                        'id_tipo_habitacion' : document.getElementById('tipoHabNombre_edit').value,
+                        'capacidadTipoHab' : document.getElementById('capacidadPersonasTipo_edit').value,
+                    },
+                    success: function (data) {
+                        location.replace(data[0]);
+                    }
+                });
+            }
         </script>
     </body>
 </html>

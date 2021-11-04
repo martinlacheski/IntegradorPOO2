@@ -50,9 +50,9 @@
                     <div class="container">
                         <!-- TABLA DE LIST -->
                         <div class="card">
-                            <div class=" card-header bg-primary">
+                            <div class=" card-header bg-dark">
                                 <p class="card-title" style="margin-top: 8px;"> Habitaciones registradas en el Sistema</p>
-                                <button type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
+                                <button type="button" class="float-right btn bg-primary" data-toggle="modal" data-target="#modal-lg-crear">
                                     Agregar Nueva Habitación
                                     <i class="fas fa-plus"></i>
                                 </button>
@@ -93,7 +93,7 @@
                                                         <td><%=tipo%></td>
                                                         <td>$<%=precioNocheHab%></td>
                                                         <td class="align-content-center">
-                                                            <button onclick="rellenarModalEdit(<%=nroHab%>)" type="button" class="btn btn-warning btn-xs"><i class="far fa-edit"></i></button>
+                                                            <button onclick="rellenarModalEdit(<%=nroHab%>)" type="button" class="btn bg-gray-dark btn-xs"><i class="far fa-edit"></i></button>
                                                             <button onclick="rellenarModalDelete(<%=nroHab%>)" type="button" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>  
@@ -215,7 +215,7 @@
             function eliminarObjeto(objID) {
                 $.ajax({
                     url: '../../SvHabitacion',
-                    type: 'GET',
+                    type: 'POST',
                     dataType: 'json',
                     data: {
                         'id_habitacion': objID.getAttribute("idObj"),
@@ -230,7 +230,7 @@
             function modificarObjeto(){
                 $.ajax({
                     url: '../../SvHabitacion', // 
-                    type: 'GET',
+                    type: 'POST',
                     dataType: 'json',
                     data: {
                         'action': 'edit',

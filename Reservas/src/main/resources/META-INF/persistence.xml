@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Logica.TipoHabitacion</class>
     <class>Logica.Habitacion</class>
+    <class>Logica.Cargo</class>
+    <class>Logica.Empleado</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3308/SistReservas?serverTimezone=UTC"/>

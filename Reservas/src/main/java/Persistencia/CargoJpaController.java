@@ -1,6 +1,6 @@
 package Persistencia;
 
-import Logica.Habitacion;
+import Logica.Cargo;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -13,31 +13,32 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public class HabitacionJpaController implements Serializable {
+public class CargoJpaController implements Serializable {
 
-    public HabitacionJpaController(EntityManagerFactory emf) {
+    public CargoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public HabitacionJpaController() {
+    public CargoJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Habitacion habitacion) throws PreexistingEntityException, Exception {
+    public void create(Cargo cargo) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(habitacion);
+            em.persist(cargo);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findHabitacion(habitacion.getNroHab()) != null) {
-                throw new PreexistingEntityException("Habitacion " + habitacion + " already exists.", ex);
+            if (findCargo(cargo.getCargo()) != null) {
+                throw new PreexistingEntityException("Cargo " + cargo + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -47,19 +48,19 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public void edit(Habitacion habitacion) throws NonexistentEntityException, Exception {
+    public void edit(Cargo cargo) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            habitacion = em.merge(habitacion);
+            cargo = em.merge(cargo);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = habitacion.getNroHab();
-                if (findHabitacion(id) == null) {
-                    throw new NonexistentEntityException("The habitacion with id " + id + " no longer exists.");
+                String id = cargo.getCargo();
+                if (findCargo(id) == null) {
+                    throw new NonexistentEntityException("The cargo with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -70,19 +71,19 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public void destroy(int id) throws NonexistentEntityException {
+    public void destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Habitacion habitacion;
+            Cargo cargo;
             try {
-                habitacion = em.getReference(Habitacion.class, id);
-                habitacion.getNroHab();
+                cargo = em.getReference(Cargo.class, id);
+                cargo.getCargo();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The habitacion with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The cargo with id " + id + " no longer exists.", enfe);
             }
-            em.remove(habitacion);
+            em.remove(cargo);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -91,19 +92,19 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public List<Habitacion> findHabitacionEntities() {
-        return findHabitacionEntities(true, -1, -1);
+    public List<Cargo> findCargoEntities() {
+        return findCargoEntities(true, -1, -1);
     }
 
-    public List<Habitacion> findHabitacionEntities(int maxResults, int firstResult) {
-        return findHabitacionEntities(false, maxResults, firstResult);
+    public List<Cargo> findCargoEntities(int maxResults, int firstResult) {
+        return findCargoEntities(false, maxResults, firstResult);
     }
 
-    private List<Habitacion> findHabitacionEntities(boolean all, int maxResults, int firstResult) {
+    private List<Cargo> findCargoEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Habitacion.class));
+            cq.select(cq.from(Cargo.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -115,20 +116,20 @@ public class HabitacionJpaController implements Serializable {
         }
     }
 
-    public Habitacion findHabitacion(int id) {
+    public Cargo findCargo(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Habitacion.class, id);
+            return em.find(Cargo.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getHabitacionCount() {
+    public int getCargoCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Habitacion> rt = cq.from(Habitacion.class);
+            Root<Cargo> rt = cq.from(Cargo.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
