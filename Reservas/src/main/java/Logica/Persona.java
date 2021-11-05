@@ -16,13 +16,12 @@ public abstract class Persona implements Serializable {
     private String apellido;
     private LocalDate fechaNac;
     private String direccion;
-    private int telefono;
+    private String telefono;
 
     public Persona() {
     }
 
-    public Persona(int dni, String nombre, String apellido,
-            LocalDate fechaNac, String direccion, int telefono) {
+    public Persona(int dni, String nombre, String apellido, LocalDate fechaNac, String direccion, String telefono) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -71,13 +70,15 @@ public abstract class Persona implements Serializable {
         this.direccion = direccion;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+   
 
     @Override
     public String toString() {

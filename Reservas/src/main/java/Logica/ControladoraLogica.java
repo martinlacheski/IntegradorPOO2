@@ -79,7 +79,7 @@ public class ControladoraLogica {
     
     // EMPLEADOS
     public void crearObjetoEmpleado(Cargo cargo, int dni, String nombre,
-            String apellido, LocalDate fechaNac, String direccion, int telefono) {
+            String apellido, LocalDate fechaNac, String direccion, String telefono) {
         Empleado objetoEmpleado = new Empleado();
         objetoEmpleado.setCargo(cargo);
         objetoEmpleado.setDni(dni);
@@ -88,6 +88,7 @@ public class ControladoraLogica {
         objetoEmpleado.setFechaNac(fechaNac);
         objetoEmpleado.setDireccion(direccion);
         objetoEmpleado.setTelefono(telefono);
+        objetoEmpleado.setEstado(true);
         Cp.persistirEmpleado(objetoEmpleado);
     }
     
@@ -114,7 +115,7 @@ public class ControladoraLogica {
     }
     
     public void modificarObjetoEmpleado(Cargo cargo, int dni, String nombre,
-            String apellido, LocalDate fechaNac, String direccion, int telefono) throws Exception {
+            String apellido, LocalDate fechaNac, String direccion, String telefono) throws Exception {
         Empleado objetoEmpleado = obtenerEmpleado(dni);
         objetoEmpleado.setCargo(cargo);
         objetoEmpleado.setNombre(nombre);
@@ -123,6 +124,10 @@ public class ControladoraLogica {
         objetoEmpleado.setDireccion(direccion);
         objetoEmpleado.setTelefono(telefono);
         Cp.editarEmpleado(objetoEmpleado);
+    }
+    
+    public void eliminarObjetoEmpleado(int idEmp) throws NonexistentEntityException {
+        Cp.eliminarEmpleado(idEmp);
     }
     
     // CARGO

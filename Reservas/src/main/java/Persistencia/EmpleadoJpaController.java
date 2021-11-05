@@ -1,6 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Persistencia;
 
-import Logica.Cargo;
 import Logica.Empleado;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
@@ -14,13 +18,17 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+/**
+ *
+ * @author leo
+ */
 public class EmpleadoJpaController implements Serializable {
 
     public EmpleadoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public EmpleadoJpaController() {
+     public EmpleadoJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
     private EntityManagerFactory emf = null;
@@ -137,5 +145,5 @@ public class EmpleadoJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

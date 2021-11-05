@@ -107,6 +107,10 @@ public class ControladoraPersistencia {
     public void editarEmpleado(Empleado objEmp) throws Exception {
          empJPA.edit(objEmp);
     }
+    
+    public void eliminarEmpleado(int idEmp) throws NonexistentEntityException {
+        empJPA.destroy(idEmp);
+    }
 
     
     // CARGO
@@ -135,6 +139,4 @@ public class ControladoraPersistencia {
     public void editarCargo(Cargo objCargo) throws Exception {
          cargoJPA.edit(objCargo);
     }
-    
-    
 }

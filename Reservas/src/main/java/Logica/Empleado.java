@@ -17,7 +17,7 @@ public class Empleado extends Persona implements Serializable{
     }
 
     public Empleado(boolean estado, Cargo cargo, int dni, String nombre,
-            String apellido, LocalDate fechaNac, String direccion, int telefono) {
+            String apellido, LocalDate fechaNac, String direccion, String telefono) {
         super(dni, nombre, apellido, fechaNac, direccion, telefono);
         this.estado = estado;
         this.cargo = cargo;

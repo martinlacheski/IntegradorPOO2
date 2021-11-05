@@ -1,3 +1,4 @@
+<%@page import="Logica.Empleado"%>
 <%@page contentType="text/html"%>
 
 <!DOCTYPE html>
@@ -14,13 +15,13 @@
             <!-- /.navbar -->
 
             <!-- MODAL ADD EMPLEADO -->
-            <%//@include file="./EmpleadosModalADD.jsp"%>
+            <%@include file="../ADD/EmpleadoModalADD.jsp"%>
 
             <!-- MODAL EDITAR EMPLEADO -->
-            <%//@include file="./EmpleadosModalEDIT.jsp"%>
+            <%@include file="../EDIT/EmpleadoModalEDIT.jsp"%>
 
             <!-- MODAL ELIMINAR EMPLEADO -->
-            <%//@include file="./EmpleadosModalDELETE.jsp"%>
+            <%@include file="../DEL/EmpleadoModalDELETE.jsp"%>
             
 
             <!-- MAIN CONTENT -->
@@ -61,25 +62,38 @@
                                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:10%">DNI</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width:20%">Nombre</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:20%">Apellido</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:20%">Fecha Nacimiento</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:15%">Dirección</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:20%">Cargo</th>
                                                         <th tabindex="0"  rowspan="1" colspan="1" style="width:10%">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr id="" class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0"></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                    <%  
+                                                        int dni;
+                                                        String nombre;
+                                                        String apellido;
+                                                        Cargo cargo;
+                                                        ControladoraLogica Cl_emp_list = new ControladoraLogica();
+                                                        List<Empleado> listaEmpleados = Cl_emp_list.listaEmpleados();
+                                                        for (Empleado emp : listaEmpleados) {
+                                                            dni = emp.getDni();
+                                                            nombre = emp.getNombre();
+                                                            apellido = emp.getApellido();
+                                                            cargo = emp.getCargo();
+                                                    %>
+                                                    <tr id="<%=dni%>" class="odd">
+                                                        <td class="dtr-control sorting_1" tabindex="0"><%=dni%></td>
+                                                        <td><%=nombre%></td>
+                                                        <td><%=apellido%></td>
+                                                        <td><%=cargo%></td>
                                                         <td class="align-content-center">
-                                                            <button id="editarEmp" type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-lg-edit"><i class="far fa-edit"></i></button>
-                                                            <button id="eliminarEmp" type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#modal-lg-delete"><i class="far fa-trash-alt"></i></button>
+                                                            <button onclick="rellenarModalEdit(<%=dni%>)" type="button" class="btn bg-warning btn-xs"><i class="far fa-edit"></i></button>
+                                                            <button onclick="rellenarModalDelete(<%=dni%>)" type="button" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>  
+                                                    <%
+                                                        }
+                                                        dni = 0;
+                                                    %>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -154,17 +168,83 @@
             }).buttons().container().appendTo('#example1 .col-md-6:eq(0)');
         </script>
 
-        <!-- Analiza si el empleado es mayor de 18 años -->
-        <!-- 
-        <script type="text/javascript" src="../JS_propios/EMPLEADO/mayorDeEdad.js"></script>
         <script>
-            $(document).on("blur", "#fechaNacADDEmpleado", function () {
-                var inFechaNac = $(this);
-                var fechaNac = inFechaNac[0].value;
-                mayorDeEdad(fechaNac);
-            });
+             function rellenarModalEdit(idObj) {
+                $('#modal-lg-editar').modal('show');
+                $.ajax({
+                    url: '../../SvEmpleado', // 
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        'id_empleado': idObj,
+                        'action': 'get_empleado_data',
+                    },
+                    success: function (data) {
+                        document.getElementById('dniEmp_edit').setAttribute("value", data.dni);
+                        date_element = data.fechaNac.year + "-" + data.fechaNac.month + "-" + data.fechaNac.day;
+                        document.getElementById('fechaNacEmp_edit').setAttribute("value", date_element);
+                        document.getElementById('apellido_edit').setAttribute("value", data.apellido);
+                        document.getElementById('nombre_edit').setAttribute("value", data.nombre);
+                        document.getElementById('defaultCargo_edit').setAttribute("value", data.cargo.cargo);
+                        document.getElementById('defaultCargo_edit').innerHTML = data.cargo.cargo;
+                        document.getElementById('telefono_edit').setAttribute("value", data.telefono);
+                        document.getElementById('direccion_edit').setAttribute("value", data.direccion);
+                    }
+                });
+            }
+            
+            function rellenarModalDelete(idObj){
+                console.log("hola");
+                // Setea id de objeto en el botón de cerrar (modal DELETE)
+                buttonD = document.getElementById('buttonDelete');
+                buttonD.setAttribute("idObj", idObj); 
+                
+                // Genera mensaje de confirmación en modal DELETE y lo muestra
+                pElement = document.getElementById('formMensajeDELETE');
+                pElement.innerHTML = "¿Está seguro que desea eliminar al empleado con DNI '" + idObj +"'?";
+                $('#modal-lg-delete').modal('show');
+            }
+            
+            
+            /* Función genérica de eliminación de objeto.
+               Invocada en botón "Eliminar" de modal DELETE */
+            function eliminarObjeto_empleado(objID) {
+                $.ajax({
+                    url: '../../SvEmpleado',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'id_empleado': objID.getAttribute("idObj"),
+                        'action': 'delete',
+                    },
+                    success: function (data) {
+                        location.replace(data[0]);
+                    }
+                });
+            }
+            
+            function modificarObjeto(){
+                $.ajax({
+                    url: '../../SvEmpleado', // 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'edit',
+                        'dni' : document.getElementById('dniEmp_edit').value,
+                        'fechaNac' : document.getElementById('fechaNacEmp_edit').value,
+                        'apellido' : document.getElementById('apellido_edit').value,
+                        'nombre' : document.getElementById('nombre_edit').value,
+                        'cargo' : document.getElementById('defaultCargo_edit').value,
+                        'telefono' : document.getElementById('telefono_edit').value,
+                        'direccion': document.getElementById('direccion_edit').value
+                    },
+                    success: function (data) {
+                        location.replace(data[0]);
+                    }
+                });
+            }
         </script>
-        -->
     </body>
+    
 </html>
 
