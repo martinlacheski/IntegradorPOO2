@@ -3,6 +3,8 @@ import Persistencia.ControladoraPersistencia;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ControladoraLogica {
     
@@ -124,10 +126,11 @@ public class ControladoraLogica {
     }
     
     // CARGO
-    public void crearObjetoCargo(String nombre, int sueldo) throws Exception {
+    public void crearObjetoCargo(String nombre, int sueldo) {
         Cargo objetoCargo = new Cargo();
         objetoCargo.setCargo(nombre);
         objetoCargo.setSueldo(sueldo);
+        System.out.println(objetoCargo);
         Cp.persistirCargo(objetoCargo);
     }
     

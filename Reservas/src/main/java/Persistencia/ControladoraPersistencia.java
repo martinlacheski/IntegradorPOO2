@@ -110,8 +110,12 @@ public class ControladoraPersistencia {
 
     
     // CARGO
-    public void persistirCargo(Cargo objetoCargo) throws Exception {
-        cargoJPA.create(objetoCargo);
+    public void persistirCargo(Cargo objetoCargo){
+        try {
+            cargoJPA.create(objetoCargo);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Cargo getCargo(String nombre) {

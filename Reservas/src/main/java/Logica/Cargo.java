@@ -31,9 +31,9 @@ public class Cargo implements Serializable {
         this.sueldo = sueldo;
     }
     
-     @Override
+    @Override
     public String toString(){
-        return "Cargo " + this.getCargo() + ", Sueldo " + this.getSueldo();
+        return this.getCargo();
     }
     
 }
