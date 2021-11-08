@@ -11,18 +11,18 @@ En este documento se desarrola un plan tentativo que abarca las historias de usu
 ### Administrador
 
 1. Como administrador, quiero poder crear nuevos usuarios en el sistema de manera tal que si un Gerente o Empleado no tiene usuario, no pueda usar el sistema. 
-2. Como Administrador, quiro poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajor.
+2. Como Administrador, quiero poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajor.
 3. Como administrador, quiero poder modificar los datos de los usuarios en el sistema en caso de que los Empleados o Gerentes se olviden, pierdan o comprometan sus contraseñas o nombre de usuario.
 4. Como administrador, quiero poder dar de baja a un usuario del sistema de manera tal que pueda revocar completo acceso a dicho Empleado/Gerente asociado al usuario en cuestión.
 5. Como administrador, quiero poder visualizar una lista de los usuarios que se tienen registrados para poder ver rápidamente a los que se tienen registrados. Dicha lista debe tener a qué empleado o Gerente está asociado cada usuario.   
 
 ### Gerente
-1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. **(lista)**
-2. Como gerente, quiero poder eliminar una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. **(lista)**
-3. Como gerente, quiero poder modificar los datos de una habitación en caso de que las mismas sufran cambios dentro del establecimiento. **(lista)**
+1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. 
+2. Como gerente, quiero poder eliminar una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. 
+3. Como gerente, quiero poder modificar los datos de una habitación en caso de que las mismas sufran cambios dentro del establecimiento.
 4. Como gerente, quiero poder obtener un listado de las habitaciones ocupadas para poder ver rápidamente a qué capacidad está el establecimiento
 5. Como gerente, quiero poder obtener un listado de las habitaciones disponibles para poder rápidamente asignarlas a nuevos huespedes. 
-6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones sean clasificables. **(lista)**
+6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones sean clasificables. 
 7. Como gerente, quiero poder modificar tipos de habitaciones llegado al caso de que las características de éstas varíen en el tiempo. 
 8. Como gerente quiero poder asociar una habitación a un tipo de habitación para poder clasificarlas.
 9. Como gerente quiero poder eliminar un tipo de habitación en caso de que este no se utilice más. 
@@ -62,17 +62,17 @@ ___
 
 | Debe tener | Es bueno tenerlas | Fuera de alcance|
 | -----------| ------------------|-----------------|
-|G1 | G4  |
-|G2 | G5  |
-|G3 | G10 |
-|G6 | G11 |
-|G7 | G16 |
-|G8 | G10 |
-|G9 | G11 |
-|G12| E10 |
-|G13| E11 |
-|G14| |
-|G15| |
+|G1 * | G4  |
+|G2 *| G5  |
+|G3 *| G10 |
+|G6 * | G11 |
+|G7 *| G16 |
+|G8 *| G10 *|
+|G9 *| G11 |
+|G12 *| E10 |
+|G13 *| E11 |
+|G14 *| |
+|G15 *| |
 |E1 | |
 |E2 | |
 |E3 | |
