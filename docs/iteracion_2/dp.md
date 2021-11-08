@@ -23,9 +23,9 @@ Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del
 | Quiroga Leonardo | Martin Lacheski | Jolu |
 | ----- | ------ |------ |
 | Creación de clases Empleado, Persona, Trabajador, Huesped | Codificación en capa logica y persistencia referente a la eliminación y modificación de Tipos de Habitación | Codificación en capa de templates para disposición del listado de Tipos de Habitación |
-| Codificación en capa Servlets para obtención y tratado de datos de Tipos de Habitación | Creación de clases Cargo y Usuario | Codificación de Formualrios para ALTA y modificación de Empleados en capa de templates |
+| Codificación en capa Servlets para obtención y tratado de datos de Tipos de Habitación | Creación de clases Cargo y Usuario | Codificación de Formularios para ALTA y modificación de Empleados en capa de templates |
 | Codificación en capa de templates para disposición del listado de Empleados | Codificación en capa de Servlets para la obtención y tratado de datos de Empleados | Codificación en capa Persistencia y Lógica para instancia de objetos y almacenamiento. 
-| Codificación en capa lógica y persistencia para la eliminación de un empleado | Codificación en capa template para eliminación de Empleado | Codificación en capa Logica y Persistencia para ALTA de ususarios 
+| Codificación en capa lógica y persistencia para la eliminación de un empleado | Codificación en capa template para eliminación de Empleado | Codificación en capa Logica y Persistencia para ALTA de usuarios 
 | Codificación en capa template de formualario para ALTA de usuario | Codificación en capa Servlet para obtención y tratado de datos de Usuario
 
 
