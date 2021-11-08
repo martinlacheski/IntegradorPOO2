@@ -69,10 +69,12 @@ Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo c
     - El usuario hace clic en el botón "Eliminar". 
     - El sistema esconde el modal, elimina los datos en la base de datos y actualiza la página para reflejar los datos modificados en el listado.
 
-4. Agregar un Tipo de Habitación
-     - El usuario visita la página web y se dirige a la sección de tipos de habitaciones, haceidno clic en el dropbox de Administación > Gestión de Tipos de Habitaciones.
+4. Agregar un nuevo Usuario
+     - El usuario visita la página web y se dirige a la sección de Usuarios, haciendo clic en el dropbox de Administación > Gestión de Usuarios.
     - El sistema lo redirecciona a la pantalla apropiada.
-    - El usuario hace clic en el botón "Agregar Nuevo Tipo de Habitacioń". 
-    - El sistema despliega un formulario tipo modal con los datos necesarios para un tipo de habitación.
-    - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Tipo Habitación".
-    - El sistema esconde el modal y actualiza la página para que la nueva habitación se vea reflejada en el listado.
+    - El usuario hace clic en el botón "Agregar Nuevo Usuario". 
+    - El sistema despliega un formulario tipo modal con los datos necesarios para un Usuario.
+    - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Usuario".
+    - El sistema esconde el modal y actualiza la página para que el nuevo usuario se vea reflejada en el listado.
+    
+
