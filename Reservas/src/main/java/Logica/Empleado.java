@@ -41,7 +41,7 @@ public class Empleado extends Persona implements Serializable{
     
     @Override
     public String toString(){
-        return "Empleado " + this.getNombre() + " " + this.getApellido();
+        return this.getNombre() + " " + this.getApellido();
     }
     
 }

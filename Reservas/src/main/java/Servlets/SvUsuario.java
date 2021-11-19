@@ -1,9 +1,10 @@
 package Servlets;
 
-import com.google.gson.Gson;
 import Logica.ControladoraLogica;
-import Logica.Cargo;
+import Logica.Empleado;
+import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,14 +17,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet(name = "SvCargo", urlPatterns = {"/SvCargo"})
-public class SvCargo extends HttpServlet {
-
+@WebServlet(name = "SvUsuario", urlPatterns = {"/SvUsuario"})
+public class SvUsuario extends HttpServlet {
+    
     ControladoraLogica Cl = new ControladoraLogica();
     Gson gson = new Gson();
     List<String> respuestaAjax = new ArrayList<>();
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,13 +37,14 @@ public class SvCargo extends HttpServlet {
         // Si la request es de tipo AJAX
         if (ajax) {
             String action = request.getParameter("action");
-            if ("get_cargo_data".equals(action)){
-                String nombreCargo = request.getParameter("id_cargo");
-                Cargo cargoObj = Cl.obtenerCargo(nombreCargo);
+            if ("get_user_data".equals(action)){
+                String nombreUser = request.getParameter("id_user");
+                Usuario user = Cl.obtenerUser(nombreUser);
                 response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().write(gson.toJson(cargoObj));
+                response.getWriter().write(gson.toJson(user));
             }
         }
+        
     }
 
     @Override
@@ -56,10 +57,10 @@ public class SvCargo extends HttpServlet {
             String action = request.getParameter("action");
             System.out.println(action);
             if ("delete".equals(action)) {
-                String cargoId = request.getParameter("id_cargo");
+                String userId = request.getParameter("id_user");
                 try {
-                    Cl.eliminarObjetoCargo(cargoId);
-                    respuestaAjax.add("/Reservas/GESTION/LIST/Cargos.jsp");
+                    Cl.eliminarObjetoUsuario(userId);
+                    respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(gson.toJson(respuestaAjax));
                 } catch (NonexistentEntityException ex) {
@@ -68,32 +69,38 @@ public class SvCargo extends HttpServlet {
             }
             
             if ("edit".equals(action)){
-                String cargoId = request.getParameter("id_cargo");
-                int sueldo = Integer.parseInt(request.getParameter("sueldo"));
+                String userId = request.getParameter("id_user");
+                String passw = request.getParameter("new_pass");
+                int empString = Integer.parseInt(request.getParameter("empleadoAsoc"));
+                System.out.println(empString);
+                Empleado empObj = Cl.obtenerEmpleado(empString);
+                
                 try {
-                    Cl.modificarObjCargo(cargoId, sueldo);
-                    respuestaAjax.add("/Reservas/GESTION/LIST/Cargos.jsp");
+                    Cl.modificarObjUsuario(userId, passw, empObj);
+                    respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(gson.toJson(respuestaAjax));
                 } catch (Exception ex) {
                     Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } else {
-            String nombreCargo = request.getParameter("cargo");
-            int sueldo = Integer.parseInt(request.getParameter("sueldo"));
-            System.out.println(nombreCargo);
-            System.out.println(sueldo);
-            Cl.crearObjetoCargo(nombreCargo, sueldo);
-            response.sendRedirect("/Reservas/GESTION/LIST/Cargos.jsp");
-
-
+            
+            
+        }else{
+            String nombreUser = request.getParameter("nombreUsuario");
+            String passw = request.getParameter("pass");
+            int empString = Integer.parseInt(request.getParameter("empleadoAsoc"));
+            
+            Empleado empObj = Cl.obtenerEmpleado(empString);
+            Cl.crearObjetoUsuario(nombreUser, passw, empObj);
+            response.sendRedirect("/Reservas/GESTION/LIST/Usuarios.jsp");
         }
+        
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

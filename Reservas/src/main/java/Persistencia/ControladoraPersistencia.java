@@ -5,6 +5,7 @@ import Logica.Cargo;
 import Logica.Empleado;
 import Logica.Habitacion;
 import Logica.TipoHabitacion;
+import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,7 +16,8 @@ public class ControladoraPersistencia {
     static HabitacionJpaController habJPA = new HabitacionJpaController();
     static EmpleadoJpaController empJPA = new EmpleadoJpaController();
     static CargoJpaController cargoJPA = new CargoJpaController();
-    
+    static UsuarioJpaController userJPA = new UsuarioJpaController();
+
     public ControladoraPersistencia() {
     }
     
@@ -139,4 +141,40 @@ public class ControladoraPersistencia {
     public void editarCargo(Cargo objCargo) throws Exception {
          cargoJPA.edit(objCargo);
     }
+    
+    
+    // USUARIO
+    public void persistirUser(Usuario objetoUsuario) {
+        try {
+            userJPA.create(objetoUsuario);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Usuario getUser(String nombreUser) {
+        Usuario userDesdeBD = userJPA.findUsuario(nombreUser);
+        return userDesdeBD;
+    }
+
+    public List getUsuarios() {
+        List<Usuario> usuariosDesdeBD = userJPA.findUsuarioEntities();
+        return usuariosDesdeBD;
+    }
+
+    public void eliminarUsuario(String nombreUser) throws NonexistentEntityException {
+        userJPA.destroy(nombreUser);
+    }
+
+    public void editarUsuario(Usuario objUsuario) throws Exception {
+        userJPA.edit(objUsuario);
+    }
+    
+    public static Usuario getUsuarioByEmpDNI(Empleado emp) {
+        Usuario usuarioDesdeBD;
+        usuarioDesdeBD = userJPA.getUsuarioByEmpDNI(emp);
+        return usuarioDesdeBD;
+    }
+    
+    
 }

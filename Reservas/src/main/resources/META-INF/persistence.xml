@@ -6,6 +6,7 @@
     <class>Logica.Habitacion</class>
     <class>Logica.Cargo</class>
     <class>Logica.Empleado</class>
+    <class>Logica.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3308/SistReservas?serverTimezone=UTC"/>

@@ -160,5 +160,39 @@ public class ControladoraLogica {
     }
     
     
+    // USUARIO
+    public void crearObjetoUsuario(String nombreUser, String passw, Empleado emp) {
+        Usuario objetoUsuario = new Usuario();
+        objetoUsuario.setNombreUsuario(nombreUser);
+        objetoUsuario.setPassUsuario(passw);
+        objetoUsuario.setEmpleadoAsoc(emp);
+        Cp.persistirUser(objetoUsuario);
+    }
+    
+    public Usuario obtenerUser (String nombreUser){
+        Usuario user = Cp.getUser(nombreUser);
+        return user; 
+    }
+    
+    public List listaUsers() {
+        List objetosUsuario = Cp.getUsuarios();
+        return objetosUsuario;
+    }
+    
+    public void eliminarObjetoUsuario(String nombreUser) throws NonexistentEntityException {
+        Cp.eliminarUsuario(nombreUser);
+    }
+    
+    public void modificarObjUsuario(String nombreUser, String passw, Empleado emp) throws Exception {
+        Usuario objUsuario = obtenerUser(nombreUser);
+        objUsuario.setPassUsuario(passw);
+        objUsuario.setEmpleadoAsoc(emp);
+        Cp.editarUsuario(objUsuario);
+    }
+    
+    public Usuario obtenerUsuarioPorDNI(Empleado emp) {
+        Usuario objetoUsuario = ControladoraPersistencia.getUsuarioByEmpDNI(emp);
+        return objetoUsuario;
+    }
     
 }
