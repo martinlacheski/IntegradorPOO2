@@ -195,4 +195,45 @@ public class ControladoraLogica {
         return objetoUsuario;
     }
     
+    
+    // HUESPED
+    public void crearObjetoHuesped(String profesion, int dni, String nombre,
+            String apellido, LocalDate fechaNac, String direccion, String telefono) {
+        Huesped objetoHuesped = new Huesped();
+        objetoHuesped.setProfesion(profesion);
+        objetoHuesped.setDni(dni);
+        objetoHuesped.setNombre(nombre);
+        objetoHuesped.setApellido(apellido);
+        objetoHuesped.setFechaNac(fechaNac);
+        objetoHuesped.setDireccion(direccion);
+        objetoHuesped.setTelefono(telefono);
+        Cp.persistirHuesped(objetoHuesped);
+    }
+    
+    public Huesped obtenerHuesped(int dni){
+        Huesped hues = Cp.getHuesped(dni);
+        return hues; 
+    }
+    
+    public List listaHuespedes() {
+        List objetosHuesped = Cp.getHuespedes();
+        return objetosHuesped;
+    }
+    
+    public void modificarObjetoHuesped(String profesion, int dni, String nombre,
+            String apellido, LocalDate fechaNac, String direccion, String telefono) throws Exception {
+        Huesped objetoHuesped = obtenerHuesped(dni);
+        objetoHuesped.setProfesion(profesion);
+        objetoHuesped.setNombre(nombre);
+        objetoHuesped.setApellido(apellido);
+        objetoHuesped.setFechaNac(fechaNac);
+        objetoHuesped.setDireccion(direccion);
+        objetoHuesped.setTelefono(telefono);
+        Cp.editarHuesped(objetoHuesped);
+    }
+    
+    public void eliminarObjetoHuesped(int idHues) throws NonexistentEntityException {
+        Cp.eliminarHuesped(idHues);
+    }
+    
 }

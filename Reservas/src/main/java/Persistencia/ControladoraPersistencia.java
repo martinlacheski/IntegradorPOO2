@@ -4,6 +4,7 @@ package Persistencia;
 import Logica.Cargo;
 import Logica.Empleado;
 import Logica.Habitacion;
+import Logica.Huesped;
 import Logica.TipoHabitacion;
 import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -17,6 +18,7 @@ public class ControladoraPersistencia {
     static EmpleadoJpaController empJPA = new EmpleadoJpaController();
     static CargoJpaController cargoJPA = new CargoJpaController();
     static UsuarioJpaController userJPA = new UsuarioJpaController();
+    static HuespedJpaController huesJPA = new HuespedJpaController();
 
     public ControladoraPersistencia() {
     }
@@ -174,6 +176,35 @@ public class ControladoraPersistencia {
         Usuario usuarioDesdeBD;
         usuarioDesdeBD = userJPA.getUsuarioByEmpDNI(emp);
         return usuarioDesdeBD;
+    }
+
+    
+    // HUESPED
+    public void persistirHuesped(Huesped objHuesped) {
+        try {
+            huesJPA.create(objHuesped);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Huesped getHuesped(int dni) {
+        Huesped huesDesdeBD = huesJPA.findHuesped(dni);
+        return huesDesdeBD;
+    }
+
+    public List getHuespedes() {
+        List<Huesped> HuespedesDesdeBD = huesJPA.findHuespedEntities();
+        return HuespedesDesdeBD;
+    }
+
+
+    public void editarHuesped(Huesped objHues) throws Exception {
+         huesJPA.edit(objHues);
+    }
+    
+    public void eliminarHuesped(int idHues) throws NonexistentEntityException {
+        huesJPA.destroy(idHues);
     }
     
     

@@ -26,7 +26,7 @@
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><a href="../LIST/Cargos.jsp" class="dropdown-item"><i class="fas fa-user-tag"></i>Gestión de Cargos</a></li>
                         <li><a href="../LIST/Empleados.jsp" class="dropdown-item"><i class="far fa-address-card"></i> Gestión de Empleados</a></li>
-                        <li><a href="" class="dropdown-item"><i class="fas fa-address-book"></i>  Gestión de Huespedes</a></li>
+                        <li><a href="../LIST/Huespedes.jsp" class="dropdown-item"><i class="fas fa-address-book"></i>  Gestión de Huespedes</a></li>
                         <li><a href="../LIST/TiposHabitaciones.jsp" class="dropdown-item"><i class="fas fa-project-diagram"></i> Gestión de Tipos de Habitaciones </a></li>
                         <li><a href="../LIST/Habitaciones.jsp" class="dropdown-item"><i class="fas fa-city"></i> Gestión de Habitaciones</a></li>
                         <li><a href="../LIST/Usuarios.jsp" class="dropdown-item"><i class="fas fa-users"></i> Gestión de Usuarios</a></li>

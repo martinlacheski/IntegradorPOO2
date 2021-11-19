@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
-import Logica.Empleado;
+import Logica.Huesped;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
@@ -18,35 +13,32 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author leo
- */
-public class EmpleadoJpaController implements Serializable {
+public class HuespedJpaController implements Serializable {
 
-    public EmpleadoJpaController(EntityManagerFactory emf) {
+    public HuespedJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     
-    public EmpleadoJpaController() {
+    public HuespedJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
+    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(Empleado empleado) throws PreexistingEntityException, Exception {
+    public void create(Huesped huesped) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            em.persist(empleado);
+            em.persist(huesped);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findEmpleado(empleado.getDni()) != null) {
-                throw new PreexistingEntityException("Empleado " + empleado + " already exists.", ex);
+            if (findHuesped(huesped.getDni()) != null) {
+                throw new PreexistingEntityException("Huesped " + huesped + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -56,19 +48,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void edit(Empleado empleado) throws NonexistentEntityException, Exception {
+    public void edit(Huesped huesped) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            empleado = em.merge(empleado);
+            huesped = em.merge(huesped);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                int id = empleado.getDni();
-                if (findEmpleado(id) == null) {
-                    throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.");
+                int id = huesped.getDni();
+                if (findHuesped(id) == null) {
+                    throw new NonexistentEntityException("The huesped with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -84,14 +76,14 @@ public class EmpleadoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empleado empleado;
+            Huesped huesped;
             try {
-                empleado = em.getReference(Empleado.class, id);
-                empleado.getDni();
+                huesped = em.getReference(Huesped.class, id);
+                huesped.getDni();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The huesped with id " + id + " no longer exists.", enfe);
             }
-            em.remove(empleado);
+            em.remove(huesped);
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -100,19 +92,19 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public List<Empleado> findEmpleadoEntities() {
-        return findEmpleadoEntities(true, -1, -1);
+    public List<Huesped> findHuespedEntities() {
+        return findHuespedEntities(true, -1, -1);
     }
 
-    public List<Empleado> findEmpleadoEntities(int maxResults, int firstResult) {
-        return findEmpleadoEntities(false, maxResults, firstResult);
+    public List<Huesped> findHuespedEntities(int maxResults, int firstResult) {
+        return findHuespedEntities(false, maxResults, firstResult);
     }
 
-    private List<Empleado> findEmpleadoEntities(boolean all, int maxResults, int firstResult) {
+    private List<Huesped> findHuespedEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Empleado.class));
+            cq.select(cq.from(Huesped.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -124,20 +116,20 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public Empleado findEmpleado(int id) {
+    public Huesped findHuesped(int id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Empleado.class, id);
+            return em.find(Huesped.class, id);
         } finally {
             em.close();
         }
     }
 
-    public int getEmpleadoCount() {
+    public int getHuespedCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Empleado> rt = cq.from(Empleado.class);
+            Root<Huesped> rt = cq.from(Huesped.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
