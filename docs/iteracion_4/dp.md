@@ -36,66 +36,37 @@ Las tareas, desarrolladas en equipo, se dividen de la siguiente manera, siendo c
 
 ## Diseño OO
 
-![alt text](../../img/diagrama_clases_it3.png)
+![alt text](../../img/Diagrama_de_clases_Iteracion_4.png)
 
 
 ## WireFrame
 
-- Lista de huespedes *(refleja tambien lista de usuarios)*
-![alt text](../../img/Diagrama_de_clases_Iteracion_4.png)
+- Generar Reserva
+![alt text](../../img/img_crear_reserva.png)
 
-- Agregar Huesped <br>
-![alt text](../../img/img_aux_add_hues.png)
+- Seleccionar informe
+![alt text](../../img/eleccion_informe.png)
 
-- Modificar Huesped <br>
-![alt text](../img/img_aux_edit_hues.png)
-
-- Eliminar Huesped **(se excluye pantalla de eliminación de usuairo debido a su similaridad con ésta)** <br>
-![alt text](../img/img_aux_delete_hues.png)
-
-- Agregar Usuario **(se excluye pantalla de edición debido a su similaridad con ésta)** <br>
-![alt text](../../img/img_aux_add_user.png)
+- Informe Reservas por Huesped
+![alt text](../../img/informe_select.png)
 
 
 ## Casos de Uso
 
-1. Agregar un Huesped
-    - El usuario visita la página web y se dirige a la sección de Huespedes, haciendo clic en el dropbox de Administación > Gestión de Huesped.
+1. Generar Reserva
+    - El usuario visita la página web y se dirige a la sección de Crear Reserva, haciendo clic en el botón con el respectivo nombre.
     - El sistema lo redirecciona a la pantalla apropiada.
-    - El usuario hace clic en el botón "Agregar Nuevo Huesped". 
-    - El sistema despliega un formulario tipo modal con los datos necesarios para un Huesped.
-    - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Huesped".
-    - El sistema esconde el modal y actualiza la página para que la nueva habitación se vea reflejada en el listado.
+    - El usuario completa los campos de Huesped Responsable, Cantidad de Personas y Habitación a reservar, luego presiona el botó nde Checkear Reserva para comprobar que dicha habitación para dicha cantidad de personas está disponible. 
+    - El sistema le confirma que la habitación está disponible. 
+    - El usuario sigue completando el formulario, indicando la fecha de chick-in y chick-out. 
+    - El sistema calcula el precio de la reserva basándose en la cantidad de días y el precio de dicha habitación por noche.
+    - El usuario presiona el botón Generar Reserva
+    - El sistema checkea que la fecha de check-in sea menor a la fecha de check-out y si lo es, genera la reserva.
 
-2. Modificar un Huesped
-    - El usuario, en la sección de Huespedes, hace clic en el botón de edición que se encuentra en cada renglón el cual representa un huesped cargado.
-    - El sistema despliega un formulario tipo modal con los datos precargados del huesped elegido.
-    - El usuario modifica los campos que cree apropiados modificar y hace clic en el botón "Guardar Modificación"
-    - El sistema esconde el modal, modifica los datos en la base de datos y actualiza la página para reflejar los datos modificados en el listado.
-
-3. Dar de baja a un huesped.
-    - El usuario, en la sección de huespedes, hace clic en el botón de eliminación que se encuentra en cada renglón el cual representa un huesped cargado.
-    - El sistema despliega un modal a modo de confirmación indicando en un mensaje si se está seguro de eliminar los datos del huesped.
-    - El usuario hace clic en el botón "Eliminar". 
-    - El sistema esconde el modal, da de baja al huesped y actualiza la página para reflejar los datos modificados en el listado.
-
-4. Agregar un nuevo Usuario
-     - El usuario visita la página web y se dirige a la sección de Usuarios, haciendo clic en el dropbox de Administación > Gestión de Usuarios.
+2. Obtener Informe
+    - El usuario visita la página web y se dirige a la sección de Informes, haciendo clic en el botón con el respectivo nombre.
     - El sistema lo redirecciona a la pantalla apropiada.
-    - El usuario hace clic en el botón "Agregar Nuevo Usuario". 
-    - El sistema despliega un formulario tipo modal con los datos necesarios para un Usuario.
-    - El usuario completa los campos requeridos en el formulario desplegado y hace clic en "Agregar Usuario".
-    - El sistema esconde el modal y actualiza la página para que el nuevo usuario se vea reflejada en el listado.
-
-
-5. Modificar un Huesped
-    - El usuario, en la sección de Usuarios, hace clic en el botón de edición que se encuentra en cada renglón el cual representa un usuario cargado.
-    - El sistema despliega un formulario tipo modal con los datos precargados del usuario elegido.
-    - El usuario modifica los campos que cree apropiados modificar y hace clic en el botón "Guardar Modificación"
-    - El sistema esconde el modal, modifica los datos en la base de datos y actualiza la página para reflejar los datos modificados en el listado.
-
-6. Dar de baja a un huesped.
-    - El usuario, en la sección de Usuarios, hace clic en el botón de eliminación que se encuentra en cada renglón el cual representa un usuario cargado.
-    - El sistema despliega un modal a modo de confirmación indicando en un mensaje si se está seguro de eliminar los datos del usuario.
-    - El usuario hace clic en el botón "Eliminar". 
-    - El sistema esconde el modal, da de baja al usuario y actualiza la página para reflejar los datos modificados en el listado.
+    - El usuario presiona en alguno de los botones señalando qué informe quiere. En este caso, reservas realizadas por un determinado huesped.
+    - El sistema lo redirecciona a la pantalla apropiada.
+    - El usuario sleeciona un periodo desde - hasta, el huesped y presiona el botón "Informe". 
+    - El sistema despliega los registros requeridos.
