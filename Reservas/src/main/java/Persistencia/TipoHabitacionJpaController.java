@@ -4,14 +4,17 @@ import Logica.TipoHabitacion;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.validation.ConstraintViolationException;
 
 public class TipoHabitacionJpaController implements Serializable {
 
@@ -56,6 +59,9 @@ public class TipoHabitacionJpaController implements Serializable {
             tipoHabitacion = em.merge(tipoHabitacion);
             em.getTransaction().commit();
         } catch (Exception ex) {
+            System.out.println("llego a jpaController");
+            System.out.println(ex);
+            System.out.println("llego a jpaController2");
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 String id = tipoHabitacion.getNombreHabitacion();
@@ -71,7 +77,7 @@ public class TipoHabitacionJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public String destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -90,6 +96,7 @@ public class TipoHabitacionJpaController implements Serializable {
                 em.close();
             }
         }
+        return null;
     }
 
     public List<TipoHabitacion> findTipoHabitacionEntities() {

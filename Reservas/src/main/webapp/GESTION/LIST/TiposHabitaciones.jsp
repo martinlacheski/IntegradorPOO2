@@ -44,7 +44,7 @@
                         <div class="card">
                             <div class=" card-header bg-primary">
                                 <p class="card-title" style="margin-top: 8px;">Tipos de Habitaciones registradas en el Sistema</p>
-                                <button type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
+                                <button id="btnADDShowModal" type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
                                     Agregar Nuevo Tipo de Habitación
                                     <i class="fas fa-plus"></i>
                                 </button>
@@ -159,6 +159,19 @@
         </script>
 
         <script>
+            
+            // INICIALIZACIONES DE MENSAJES DE ERROR (para que se escondan)
+            $(document).ready(function(){
+                document.getElementById('cardErroresADD').setAttribute("hidden", "");
+            });
+            $("#btnADDShowModal").click(function(){
+                document.getElementById('cardErroresADD').setAttribute("hidden", "");
+            });
+            $('[data-target="#modal-lg-delete"]').click(function(){
+                document.getElementById('cardErroresDEL').setAttribute("hidden", "");
+            });
+            
+            
             function rellenarModalEdit(id_TipoHabitacion) {
                 $('#modal-lg-editar').modal('show');
                 $.ajax({
@@ -201,7 +214,12 @@
                         'action': 'delete',
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        if (data.at(-1) == "dependencia"){
+                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
+                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
                     }
                 });
             }
@@ -218,6 +236,30 @@
                     },
                     success: function (data) {
                         location.replace(data[0]);
+                    }
+                });
+            }
+            
+            function addObjeto(){
+                console.log(document.getElementById('tipoHabNombre_add').value);
+                console.log(document.getElementById('capacidadPersonasTipo_add').value);
+                $.ajax({
+                    url: '../../SvTipoHabitacion', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'add',
+                        'id_tipo_habitacion' : document.getElementById('tipoHabNombre_add').value,
+                        'capacidadTipoHab' : document.getElementById('capacidadPersonasTipo_add').value,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.at(-1) == "repetido"){
+                            document.getElementById('cardErroresADD').removeAttribute("hidden");
+                            document.getElementById('erroresFormADD').innerHTML = "Ya existe un registro igual a este."; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
                     }
                 });
             }

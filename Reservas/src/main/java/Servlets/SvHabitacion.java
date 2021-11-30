@@ -62,6 +62,7 @@ public class SvHabitacion extends HttpServlet {
             if ("delete".equals(action)) {
                 int nroHab = Integer.parseInt(request.getParameter("id_habitacion"));
                 try {
+                    System.out.println("llego a sv");
                     Cl.eliminarObjetoHabitacion(nroHab);
                     respuestaAjax.add("/Reservas/GESTION/LIST/Habitaciones.jsp");
                     response.setContentType("application/json;charset=UTF-8");

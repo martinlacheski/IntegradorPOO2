@@ -8,9 +8,13 @@ import Logica.Huesped;
 import Logica.TipoHabitacion;
 import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
+import Persistencia.exceptions.PreexistingEntityException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.RollbackException;
+import javax.validation.ConstraintViolationException;
 
 public class ControladoraPersistencia {
     static TipoHabitacionJpaController tipoHabJPA = new TipoHabitacionJpaController();
@@ -24,12 +28,16 @@ public class ControladoraPersistencia {
     }
     
     // TIPO DE HABITACIÓN
-    public void persistirTipoHabitacion(TipoHabitacion objetoTipoHabitacion) {
+    public String persistirTipoHabitacion(TipoHabitacion objetoTipoHabitacion) {
         try {
             tipoHabJPA.create(objetoTipoHabitacion);
-        } catch (Exception ex) {
+            return "ok";
+        }catch (PreexistingEntityException e){
+            return "repetido";
+        }catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
     
     public List getTiposHabitaciones() {
@@ -44,8 +52,12 @@ public class ControladoraPersistencia {
         return tipoHabitacionDesdeBD;
     }
     
-    public void eliminarTipoHabitacion(String tipoHabitacion) throws NonexistentEntityException {
-        tipoHabJPA.destroy(tipoHabitacion);
+    public void eliminarTipoHabitacion(String tipoHabitacion){
+        try {
+            tipoHabJPA.destroy(tipoHabitacion);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void editarTipoHabitacion(TipoHabitacion objTipohab) throws Exception {

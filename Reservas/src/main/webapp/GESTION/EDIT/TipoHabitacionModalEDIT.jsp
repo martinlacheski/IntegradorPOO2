@@ -26,10 +26,10 @@
                     </div>
 
                     <!-- Errores -->
-                    <div id="cardErrores" hidden class="alert alert-danger alert-dismissible">
+                    <div id="cardErroresEDIT" hidden class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
-                        <p id="erroresForm"> </p>
+                        <p id="erroresFormEDIT"> </p>
 
                     </div>
                     <div class="card-footer">

@@ -1,6 +1,7 @@
 package Logica;
 import Persistencia.ControladoraPersistencia;
 import Persistencia.exceptions.NonexistentEntityException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,11 +12,13 @@ public class ControladoraLogica {
     // TIPO HABITACIONES
     ControladoraPersistencia Cp = new ControladoraPersistencia();
     
-    public void crearObjetoTipoHabitacion(String nombreTipo, int capacidadPersonas) {
+    public String crearObjetoTipoHabitacion(String nombreTipo, int capacidadPersonas) {
+        String error;
         TipoHabitacion objetoTipoHabitacion = new TipoHabitacion();
         objetoTipoHabitacion.setNombreHabitacion(nombreTipo);
         objetoTipoHabitacion.setCapacidadPersonas(capacidadPersonas);
-        Cp.persistirTipoHabitacion(objetoTipoHabitacion);
+        error = Cp.persistirTipoHabitacion(objetoTipoHabitacion);
+        return error;
     }
 
     public List listaTiposHabitaciones() {
@@ -28,7 +31,7 @@ public class ControladoraLogica {
         return hab; 
     }
     
-    public void eliminarObjetoTipoHabitacion(String tipoHabitacion) throws NonexistentEntityException {
+    public void eliminarObjetoTipoHabitacion(String tipoHabitacion) throws NonexistentEntityException{
         Cp.eliminarTipoHabitacion(tipoHabitacion);
     }
     
