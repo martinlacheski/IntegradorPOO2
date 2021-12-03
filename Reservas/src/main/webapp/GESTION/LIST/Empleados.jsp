@@ -194,7 +194,6 @@
             }
             
             function rellenarModalDelete(idObj){
-                console.log("hola");
                 // Setea id de objeto en el botón de cerrar (modal DELETE)
                 buttonD = document.getElementById('buttonDelete');
                 buttonD.setAttribute("idObj", idObj); 

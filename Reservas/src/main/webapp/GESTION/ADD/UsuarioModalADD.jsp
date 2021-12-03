@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="usuarioForm" action="../../SvUsuario" method="POST">
+                <form id="usuarioForm" action="" method="POST">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="dni">NOMBRE DE USUARIO:</label>
@@ -20,11 +20,11 @@
                             <input id="nombreUserInputADD" type="text" class="form-control" name="nombreUsuario"><br>
 
                             <label for="pass">NUEVA CONTRASEÑA: </label>
-                            <input type="password" class="form-control" name="pass"><br>
+                            <input id="passUser1ADD" type="password" class="form-control" name="pass"><br>
 
                             <div class="form-group">
                                 <label>EMPLEADO ASOCIADO:</label>
-                                <select name="empleadoAsoc" class="form-control">
+                                <select id="selectEmpAsocADD" name="empleadoAsoc" class="form-control">
                                     <option value="---">--------</option>
                                     <%  String nombre_empleado;
                                         int dni_empleado;
@@ -53,16 +53,16 @@
                     </div>
 
                     <!-- Errores -->
-                    <div id="cardErrores" hidden class="alert alert-danger alert-dismissible">
+                    <div id="cardErroresADD" hidden class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
-                        <p id="erroresForm"> </p>
+                        <p id="erroresFormADD"> </p>
 
                     </div>
 
 
                     <div class="card-footer">
-                        <button id ="btnAddUsuario" type="submit" class="btn btn-primary float-right">Agregar Usuario</button>
+                        <button onclick="addObjeto()" id ="btnAddUsuario" type="button" class="btn btn-primary float-right">Agregar Usuario</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">Cerrar</span>
                         </button>

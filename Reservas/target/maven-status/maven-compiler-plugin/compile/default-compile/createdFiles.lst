@@ -1,4 +1,5 @@
 Persistencia/CargoJpaController.class
+Logica/Reserva.class
 Persistencia/HuespedJpaController.class
 Persistencia/ControladoraPersistencia.class
 Logica/Usuario_.class
@@ -9,9 +10,11 @@ Servlets/SvHabitacion.class
 Logica/Habitacion.class
 Persistencia/exceptions/PreexistingEntityException.class
 Servlets/SvHuesped.class
+Persistencia/ReservaJpaController.class
 Logica/Habitacion_.class
 Logica/Huesped.class
 Logica/Cargo.class
+Logica/Reserva_.class
 Logica/Empleado_.class
 Persistencia/UsuarioJpaController.class
 Logica/ControladoraLogica.class

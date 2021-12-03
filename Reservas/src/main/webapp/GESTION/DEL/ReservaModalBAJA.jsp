@@ -1,11 +1,10 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="modal fade" id="modal-lg-delete" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-danger color-palette">
-                <h4 class="modal-title" >Eliminar Cargo</h4>
+                <h4 class="modal-title" >Dar de baja a Reserva</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">Ã—</span>
+                    <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -16,7 +15,7 @@
                     
                     <!-- Errores -->
                     <div id="cardErroresDEL" hidden class="alert alert-danger alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">Ã—</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
                         <p id="erroresFormDEL"> </p>
 
@@ -24,7 +23,7 @@
                 </div>
                     
                 <div class="card-footer">
-                    <button id="buttonDelete" type="button" idObj="" onclick="eliminarObjeto_cargo(this)" class="btn btn-danger float-right">Eliminar</button>
+                    <button id="buttonDelete" type="button" idObj="" onclick="eliminarObjeto_Reserva(this)" class="btn btn-danger float-right">Dar de Baja</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">Cerrar</span>
                     </button>

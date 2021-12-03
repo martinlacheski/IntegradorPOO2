@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +24,7 @@ public class SvCargo extends HttpServlet {
     ControladoraLogica Cl = new ControladoraLogica();
     Gson gson = new Gson();
     List<String> respuestaAjax = new ArrayList<>();
+    String error;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,17 +56,18 @@ public class SvCargo extends HttpServlet {
         
         if (ajax){
             String action = request.getParameter("action");
-            System.out.println(action);
             if ("delete".equals(action)) {
                 String cargoId = request.getParameter("id_cargo");
                 try {
                     Cl.eliminarObjetoCargo(cargoId);
                     respuestaAjax.add("/Reservas/GESTION/LIST/Cargos.jsp");
-                    response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write(gson.toJson(respuestaAjax));
                 } catch (NonexistentEntityException ex) {
                     Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (RollbackException e){                                                      // Controla la ex que indica que otros obj dependen de él.
+                    respuestaAjax.add("dependencia"); 
                 }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
             }
             
             if ("edit".equals(action)){
@@ -79,15 +82,22 @@ public class SvCargo extends HttpServlet {
                     Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+            
+            if ("add".equals(action)){
+                String nombreCargo = request.getParameter("cargo");
+                int sueldo = Integer.parseInt(request.getParameter("sueldo"));
+                System.out.println(nombreCargo);
+                System.out.println(sueldo);
+                error = Cl.crearObjetoCargo(nombreCargo, sueldo);
+                if ("repetido".equals(error)){
+                    respuestaAjax.add(error);
+                }else{
+                    respuestaAjax.add("/Reservas/GESTION/LIST/TiposHabitaciones.jsp");
+                }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
+            }
         } else {
-            String nombreCargo = request.getParameter("cargo");
-            int sueldo = Integer.parseInt(request.getParameter("sueldo"));
-            System.out.println(nombreCargo);
-            System.out.println(sueldo);
-            Cl.crearObjetoCargo(nombreCargo, sueldo);
-            response.sendRedirect("/Reservas/GESTION/LIST/Cargos.jsp");
-
-
         }
     }
 

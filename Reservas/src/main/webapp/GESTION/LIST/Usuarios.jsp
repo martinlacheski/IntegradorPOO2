@@ -45,7 +45,7 @@
                         <div class="card">
                             <div class=" card-header bg-primary">
                                 <p class="card-title" style="margin-top: 8px;"> Usuarios registrados en el Sistema</p>
-                                <button type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
+                                <button id="btnADDShowModal" type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
                                     Agregar Nuevo Usuario
                                     <i class="fas fa-user-plus"></i>
                                 </button>
@@ -161,15 +161,26 @@
         </script>
 
         <script>
+             // INICIALIZACIONES DE MENSAJES DE ERROR (para que se escondan)
+            $(document).ready(function(){
+                document.getElementById('cardErroresADD').setAttribute("hidden", "");
+            });
+            $("#btnADDShowModal").click(function(){
+                document.getElementById('cardErroresADD').setAttribute("hidden", "");
+            });
+            $('[data-target="#modal-lg-delete"]').click(function(){
+                document.getElementById('cardErroresDEL').setAttribute("hidden", "");
+            });
+            
             function rellenarModalEdit(idObj) {
-                //console.log(idObj.id);
+                //console.log(idObj[0].id);
                 $('#modal-lg-editar').modal('show');
                 $.ajax({
                     url: '../../SvUsuario', // 
                     type: 'GET',
                     dataType: 'json',
                     data: {
-                        'id_user': idObj.id,
+                        'id_user':idObj[0].id,
                         'action': 'get_user_data',
                     },
                     success: function (data) {
@@ -183,21 +194,20 @@
             }
             
             function rellenarModalDelete(idObj){
-                console.log(idObj.id);
+                console.log(idObj[0].id);
                 // Setea id de objeto en el botón de cerrar (modal DELETE)
                 buttonD = document.getElementById('buttonDelete');
-                buttonD.setAttribute("idObj", idObj.id); 
+                buttonD.setAttribute("idObj", idObj[0].id); 
                 
                 // Genera mensaje de confirmación en modal DELETE y lo muestra
                 pElement = document.getElementById('formMensajeDELETE');
-                pElement.innerHTML = "¿Está seguro que desea eliminar al usuario '" + idObj.id +"'?";
+                pElement.innerHTML = "¿Está seguro que desea eliminar al usuario '" + idObj[0].id +"'?";
                 $('#modal-lg-delete').modal('show');
             }
             
             /* Función genérica de eliminación de objeto.
                Invocada en botón "Eliminar" de modal DELETE */
             function eliminarObjeto_usuario(objID) {
-                console.log(objID.getAttribute("idObj"));
                 $.ajax({
                     url: '../../SvUsuario',
                     type: 'POST',
@@ -207,7 +217,12 @@
                         'action': 'delete',
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        if (data.at(-1) == "dependencia"){
+                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
+                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
                     }
                 });
             }
@@ -238,6 +253,32 @@
                 }else{
                     errorPass.removeAttribute("hidden");
                 }
+            }
+            
+            function addObjeto(){
+                console.log(document.getElementById('nombreUserInputADD').value);
+                console.log(document.getElementById('passUser1ADD').value);
+                console.log(document.getElementById('selectEmpAsocADD').value);
+                $.ajax({
+                    url: '../../SvUsuario', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'add',
+                        'id_user' : document.getElementById('nombreUserInputADD').value,
+                        'pass' : document.getElementById('passUser1ADD').value,
+                        'empleadoAsoc' : document.getElementById('selectEmpAsocADD').value,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    if (data.at(-1) == "repetido"){
+                            document.getElementById('cardErroresADD').removeAttribute("hidden");
+                            document.getElementById('erroresFormADD').innerHTML = "Ya existe un registro igual a este."; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
+                    } 
+                }); 
             }
         </script>
     </body>

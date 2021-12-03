@@ -9,31 +9,31 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="cargoForm" action="../../SvCargo" method="POST">
+                <form id="cargoForm" action="" method="POST">
                     <div class="card-body">
                         <div class="form-group">
                             <label for="cargoNombre">NOMBRE CARGO:</label>
                             <p id="pErrorADD" hidden style="color:red"></p>
-                            <input id="cargoNombre" name="cargo" type="text" class="form-control"><br>
+                            <input id="cargoNombreADD" name="cargo" type="text" class="form-control"><br>
                         </div>
                         <div class="form-group">
                             <label for="sueldo">SUELDO:</label>
-                            <input id="sueldo" autocomplete="off" value="" type="text"
+                            <input id="sueldoADD" autocomplete="off" value="" type="text"
                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                    class="form-control" name="sueldo">
                          </div>
                     </div>
 
                     <!-- Errores -->
-                    <div id="cardErrores" hidden class="alert alert-danger alert-dismissible">
+                    <div id="cardErroresADD" hidden class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
-                        <p id="erroresForm"> </p>
+                        <p id="erroresFormADD"> </p>
 
                     </div>
 
                     <div class="card-footer">
-                        <button id="btnAddCargo" type="submit" class="btn btn-primary float-right">Agregar Cargo</button>
+                        <button onclick="addObjeto()" id="btnAddCargo" type="button" class="btn btn-primary float-right">Agregar Cargo</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">Cerrar</span>
                         </button>

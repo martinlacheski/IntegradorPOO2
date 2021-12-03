@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +24,7 @@ public class SvUsuario extends HttpServlet {
     ControladoraLogica Cl = new ControladoraLogica();
     Gson gson = new Gson();
     List<String> respuestaAjax = new ArrayList<>();
+    String error;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,11 +63,13 @@ public class SvUsuario extends HttpServlet {
                 try {
                     Cl.eliminarObjetoUsuario(userId);
                     respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
-                    response.setContentType("application/json;charset=UTF-8");
-                    response.getWriter().write(gson.toJson(respuestaAjax));
                 } catch (NonexistentEntityException ex) {
                     Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (RollbackException e){                                                      // Controla la ex que indica que otros obj dependen de él.
+                    respuestaAjax.add("dependencia");
                 }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
             }
             
             if ("edit".equals(action)){
@@ -85,15 +89,24 @@ public class SvUsuario extends HttpServlet {
                 }
             }
             
+            if ("add".equals(action)){
+                String nombreUser = request.getParameter("id_user");
+                String passw = request.getParameter("pass");
+                int empString = Integer.parseInt(request.getParameter("empleadoAsoc"));
+                Empleado empObj = Cl.obtenerEmpleado(empString);
+                error = Cl.crearObjetoUsuario(nombreUser, passw, empObj);
+                if ("repetido".equals(error)){
+                    respuestaAjax.add(error);
+                }else{
+                    respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
+                }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
+            }
+            
             
         }else{
-            String nombreUser = request.getParameter("nombreUsuario");
-            String passw = request.getParameter("pass");
-            int empString = Integer.parseInt(request.getParameter("empleadoAsoc"));
             
-            Empleado empObj = Cl.obtenerEmpleado(empString);
-            Cl.crearObjetoUsuario(nombreUser, passw, empObj);
-            response.sendRedirect("/Reservas/GESTION/LIST/Usuarios.jsp");
         }
         
     }

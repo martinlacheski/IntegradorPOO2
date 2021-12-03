@@ -16,7 +16,7 @@
                     <a href="../index.jsp" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/HOTEL/GESTION/Reservas.jsp" class="nav-link"><i class="far fa-list-alt"></i> Crear Reserva</a>
+                    <a href="../LIST/Reservas.jsp" class="nav-link"><i class="far fa-list-alt"></i> Crear Reserva</a>
                 </li>
                 <li class="nav-item">
                     <a href="/HOTEL/GESTION/Informes.jsp" class="nav-link"><i class="far fa-chart-bar"></i> Informes</a>

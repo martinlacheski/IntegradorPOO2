@@ -134,12 +134,14 @@ public class ControladoraLogica {
     }
     
     // CARGO
-    public void crearObjetoCargo(String nombre, int sueldo) {
+    public String crearObjetoCargo(String nombre, int sueldo) {
+        String error;
         Cargo objetoCargo = new Cargo();
         objetoCargo.setCargo(nombre);
         objetoCargo.setSueldo(sueldo);
         System.out.println(objetoCargo);
-        Cp.persistirCargo(objetoCargo);
+        error = Cp.persistirCargo(objetoCargo);
+        return error;
     }
     
     public Cargo obtenerCargo (String nombre){
@@ -164,12 +166,14 @@ public class ControladoraLogica {
     
     
     // USUARIO
-    public void crearObjetoUsuario(String nombreUser, String passw, Empleado emp) {
+    public String crearObjetoUsuario(String nombreUser, String passw, Empleado emp) {
+        String error;
         Usuario objetoUsuario = new Usuario();
         objetoUsuario.setNombreUsuario(nombreUser);
         objetoUsuario.setPassUsuario(passw);
         objetoUsuario.setEmpleadoAsoc(emp);
-        Cp.persistirUser(objetoUsuario);
+        error = Cp.persistirUser(objetoUsuario);
+        return error;
     }
     
     public Usuario obtenerUser (String nombreUser){
@@ -238,5 +242,39 @@ public class ControladoraLogica {
     public void eliminarObjetoHuesped(int idHues) throws NonexistentEntityException {
         Cp.eliminarHuesped(idHues);
     }
+    
+    
+    // RESERVA
+    public void crearObjetoReserva(LocalDate checkIn, LocalDate checkOut, int cantPersonas,
+                                   int montoTotal, Huesped huespedAsoc, Habitacion habReservada) {
+        Reserva objetoReserva = new Reserva();
+        objetoReserva.setCheckIn(checkIn);
+        objetoReserva.setCheckOut(checkOut);
+        objetoReserva.setFechaCreacionReserva(LocalDate.now()); // setea fecha de creación con hora del servidor
+        objetoReserva.setCantPersonas(cantPersonas);
+        objetoReserva.setMontoTotal(montoTotal);
+        objetoReserva.setEstado(true);                          // setea reserva como activa
+        objetoReserva.setHuespedAsoc(huespedAsoc);
+        objetoReserva.setHabReservada(habReservada);
+        Cp.persistirReserva(objetoReserva);
+    }
+    
+    public Reserva obtenerReserva(int id){
+        Reserva reser = Cp.getReserva(id);
+        return reser;
+    }
+    
+    public List listaReservas() {
+        List objetosReserva = Cp.getReservas();
+        return objetosReserva;
+    }
+    
+    public void bajaReserva(int id) throws Exception{
+        Reserva objetoReserva = obtenerReserva(id);
+        objetoReserva.setEstado(false);
+        Cp.persistirBajaReserva(objetoReserva);
+    }
+    
+    // falta generar el método para consulta desde-hasta por huesped
     
 }

@@ -5,6 +5,7 @@ import Logica.Cargo;
 import Logica.Empleado;
 import Logica.Habitacion;
 import Logica.Huesped;
+import Logica.Reserva;
 import Logica.TipoHabitacion;
 import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -23,6 +24,7 @@ public class ControladoraPersistencia {
     static CargoJpaController cargoJPA = new CargoJpaController();
     static UsuarioJpaController userJPA = new UsuarioJpaController();
     static HuespedJpaController huesJPA = new HuespedJpaController();
+    static ReservaJpaController ReserJPA = new ReservaJpaController();
 
     public ControladoraPersistencia() {
     }
@@ -130,14 +132,18 @@ public class ControladoraPersistencia {
 
     
     // CARGO
-    public void persistirCargo(Cargo objetoCargo){
+    public String persistirCargo(Cargo objetoCargo){
         try {
             cargoJPA.create(objetoCargo);
+            return "ok";
+        }catch (PreexistingEntityException e){
+            return "repetido";
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
-
+    
     public Cargo getCargo(String nombre) {
         Cargo cargoDesdeBD = cargoJPA.findCargo(nombre);
         return cargoDesdeBD;
@@ -158,14 +164,18 @@ public class ControladoraPersistencia {
     
     
     // USUARIO
-    public void persistirUser(Usuario objetoUsuario) {
+    public String persistirUser(Usuario objetoUsuario) {
         try {
             userJPA.create(objetoUsuario);
+            return "ok";
+        } catch (PreexistingEntityException e){
+            return "repetido";
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
-
+    
     public Usuario getUser(String nombreUser) {
         Usuario userDesdeBD = userJPA.findUsuario(nombreUser);
         return userDesdeBD;
@@ -219,5 +229,24 @@ public class ControladoraPersistencia {
         huesJPA.destroy(idHues);
     }
     
+    
+    // RESERVA
+    public void persistirReserva(Reserva objetoReserva) {
+        ReserJPA.create(objetoReserva);
+    }
+
+    public Reserva getReserva(int id) {
+        Reserva reserDesdeBD = ReserJPA.findReserva(id);
+        return reserDesdeBD;
+    }
+
+    public void persistirBajaReserva(Reserva objetoReserva) throws Exception {
+        ReserJPA.edit(objetoReserva);
+    }
+
+    public List getReservas() {
+        List<Reserva> ReservasDesdeBD = ReserJPA.findReservaEntities();
+        return ReservasDesdeBD;
+    }
     
 }
