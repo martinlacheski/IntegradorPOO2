@@ -1,6 +1,7 @@
 Persistencia/CargoJpaController.class
 Logica/Reserva.class
 Persistencia/HuespedJpaController.class
+Servlets/SvReserva.class
 Persistencia/ControladoraPersistencia.class
 Logica/Usuario_.class
 Persistencia/HabitacionJpaController.class

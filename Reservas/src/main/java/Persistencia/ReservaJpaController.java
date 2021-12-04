@@ -1,19 +1,24 @@
 package Persistencia;
 
+import Logica.Huesped;
 import Logica.Reserva;
+import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public class ReservaJpaController implements Serializable {
-
+    
     public ReservaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -21,13 +26,13 @@ public class ReservaJpaController implements Serializable {
     public ReservaJpaController() {
         emf = Persistence.createEntityManagerFactory("ReservasPU");
     }
-        
+    
     private EntityManagerFactory emf = null;
-
+    
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
-
+    
     public void create(Reserva reserva) {
         EntityManager em = null;
         try {
@@ -41,7 +46,7 @@ public class ReservaJpaController implements Serializable {
             }
         }
     }
-
+    
     public void edit(Reserva reserva) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -64,7 +69,7 @@ public class ReservaJpaController implements Serializable {
             }
         }
     }
-
+    
     public void destroy(int id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -85,15 +90,15 @@ public class ReservaJpaController implements Serializable {
             }
         }
     }
-
+    
     public List<Reserva> findReservaEntities() {
         return findReservaEntities(true, -1, -1);
     }
-
+    
     public List<Reserva> findReservaEntities(int maxResults, int firstResult) {
         return findReservaEntities(false, maxResults, firstResult);
     }
-
+    
     private List<Reserva> findReservaEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
@@ -109,7 +114,7 @@ public class ReservaJpaController implements Serializable {
             em.close();
         }
     }
-
+    
     public Reserva findReserva(int id) {
         EntityManager em = getEntityManager();
         try {
@@ -118,7 +123,7 @@ public class ReservaJpaController implements Serializable {
             em.close();
         }
     }
-
+    
     public int getReservaCount() {
         EntityManager em = getEntityManager();
         try {

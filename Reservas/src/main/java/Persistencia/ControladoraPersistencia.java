@@ -11,6 +11,7 @@ import Logica.Usuario;
 import Persistencia.exceptions.NonexistentEntityException;
 import Persistencia.exceptions.PreexistingEntityException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -248,5 +249,4 @@ public class ControladoraPersistencia {
         List<Reserva> ReservasDesdeBD = ReserJPA.findReservaEntities();
         return ReservasDesdeBD;
     }
-    
 }

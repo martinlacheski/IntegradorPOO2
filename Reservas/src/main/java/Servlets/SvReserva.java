@@ -57,7 +57,7 @@ public class SvReserva extends HttpServlet {
                 int precioReser = Integer.parseInt(request.getParameter("precioReserva"));
                 
                 // Instanciación de objetos asociados
-                Huesped huespedOnj = Cl.obtenerHuesped(huespedResp);
+                Huesped huespedObj = Cl.obtenerHuesped(huespedResp);
                 Habitacion habitacionObj = Cl.obtenerHabitacion(habAReservar);
                 
                 // Check de superposición
@@ -69,7 +69,7 @@ public class SvReserva extends HttpServlet {
                         && (reser.getCheckIn().isBefore(checkOut) || reser.getCheckIn().isEqual(checkOut))){
                         if (reser.getHabReservada().getNroHab() == (habitacionObj.getNroHab())){
                             superposicion = true;
-                        } else {
+                        }else{
                         }
                      }
                 }
@@ -80,7 +80,7 @@ public class SvReserva extends HttpServlet {
                 }else {
                     // Creación de reserva
                     Cl.crearObjetoReserva(checkIn, checkOut, cantPersonas,
-                                          precioReser, huespedOnj, habitacionObj);
+                                          precioReser, huespedObj, habitacionObj);
                     respuestaAjax.add("/Reservas/GESTION/LIST/Reservas.jsp");
                 }
                 response.setContentType("application/json;charset=UTF-8");
@@ -97,6 +97,27 @@ public class SvReserva extends HttpServlet {
                 respuestaAjax.add("/Reservas/GESTION/LIST/Reservas.jsp");
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(gson.toJson(respuestaAjax));
+            }
+            
+            if ("informe".equals(action)){
+                List<Reserva> listaInfAjax = new ArrayList<>();
+                int huespedResp = Integer.parseInt(request.getParameter("huesped"));
+                LocalDate desde = LocalDate.parse(request.getParameter("checkIn"));
+                LocalDate hasta = LocalDate.parse(request.getParameter("checkOut"));
+                System.out.println(huespedResp);
+                System.out.println(desde);
+                System.out.println(hasta);
+                
+                List <Reserva> listaInforme = Cl.listaReservas();
+                for (Reserva reser: listaInforme){
+                    if(reser.getHuespedAsoc().getDni() == huespedResp){
+                        if ((reser.getCheckIn().isAfter(desde)) || (reser.getCheckOut().isBefore(hasta))){
+                            listaInfAjax.add(reser);
+                        }
+                    }
+                }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(listaInfAjax));
             }
         }
 
