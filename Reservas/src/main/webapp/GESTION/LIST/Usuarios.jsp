@@ -21,8 +21,13 @@
             <%@include file="../EDIT/UsuarioModalEDIT.jsp"%>
 
             <!-- MODAL ELIMINAR EMPLEADO -->
-            <%@include file="../DEL/UsuarioModalDELETE.jsp"%>
-
+            <%//@include file="../DEL/UsuarioModalDELETE.jsp"%>
+            
+            <!-- MODAL BAJA EMPLEADO -->
+            <%@include file="../DEL/UsuarioModalBAJA.jsp"%>
+            
+            <!-- MODAL ALTA EMPLEADO -->
+            <%@include file="../DEL/UsuarioModalALTA.jsp"%>
 
             <!-- MAIN CONTENT -->
             <div class="content-wrapper">
@@ -59,13 +64,15 @@
                                             <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
                                                 <thead>
                                                     <tr>
-                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:44%">Nombre Usuario</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:44%">Empleado Asociado</th>
-                                                        <th tabindex="0"  rowspan="1" colspan="1" style="width:12%">Acciones</th>
+                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:30%">Nombre Usuario</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:30%">Empleado Asociado</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:15%">Estado</th>
+                                                        <th tabindex="0"  rowspan="1" colspan="1" style="width:15%">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <%
+                                                        boolean estado;
                                                         String nombre_usuario;
                                                         String empleado_asociado;
                                                         ControladoraLogica controlUser = new ControladoraLogica();
@@ -73,13 +80,45 @@
                                                         for (Usuario user : listaUsuarios) {
                                                             nombre_usuario = user.getNombreUsuario();
                                                             empleado_asociado = user.getEmpleadoAsoc().toString();
+                                                            estado = user.isEstado();
                                                     %>
                                                     <tr id="<%=nombre_usuario%>" class="odd">
                                                         <td class="dtr-control sorting_1" tabindex="0"><%=nombre_usuario%></td>
                                                         <td><%=empleado_asociado%></td>
+                                                        <% if (estado){ %>
+                                                            <td><small class="badge badge-success">Activo</small></td>
+                                                        <% }else { %>
+                                                            <td><span class="badge badge-danger">De baja</span></td>
+                                                        <%} %>
                                                         <td class="align-content-center">
-                                                            <button id="<%=nombre_usuario%>" onclick="rellenarModalEdit(<%=nombre_usuario%>)" type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modal-lg-edit"><i class="far fa-edit"></i></button>
-                                                            <button id="<%=nombre_usuario%>" onclick="rellenarModalDelete(<%=nombre_usuario%>)" type="button" class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#modal-lg-delete"><i class="far fa-trash-alt"></i></button>
+                                                            <button id="<%=nombre_usuario%>"
+                                                                    onclick="rellenarModalEdit(<%=nombre_usuario%>)"
+                                                                    type="button"
+                                                                    class="btn btn-warning btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-edit">
+                                                                <i class="far fa-edit">
+                                                                </i>
+                                                            </button>
+                                                        <% if (estado) { %>
+                                                            <button id="<%=nombre_usuario%>" 
+                                                                    onclick="rellenarModalBaja(<%=nombre_usuario%>)"
+                                                                    type="button"
+                                                                    class="btn btn-danger btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-baja">
+                                                                <i class="fas fa-chevron-down"></i>
+                                                            </button>
+                                                        <% }else{ %>
+                                                            <button id="<%=nombre_usuario%>" 
+                                                                    onclick="rellenarModalAlta(<%=nombre_usuario%>)"
+                                                                    type="button"
+                                                                    class="btn btn-success btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-alta">
+                                                                <i class="fas fa-chevron-up"></i>
+                                                            </button>  
+                                                        <% } %>
                                                         </td>
                                                     </tr>  
 
@@ -192,7 +231,7 @@
                     }
                 });
             }
-            
+            /*
             function rellenarModalDelete(idObj){
                 console.log(idObj[0].id);
                 // Setea id de objeto en el botón de cerrar (modal DELETE)
@@ -203,10 +242,36 @@
                 pElement = document.getElementById('formMensajeDELETE');
                 pElement.innerHTML = "¿Está seguro que desea eliminar al usuario '" + idObj[0].id +"'?";
                 $('#modal-lg-delete').modal('show');
+            } */
+            
+            function rellenarModalBaja(idObj){
+                console.log(idObj[0].id);
+                // Setea id de objeto en el botón de cerrar (modal baja)
+                buttonD = document.getElementById('buttonBaja');
+                buttonD.setAttribute("idObj", idObj[0].id); 
+                
+                // Genera mensaje de confirmación en modal baja y lo muestra
+                pElement = document.getElementById('formMensajeBAJA');
+                pElement.innerHTML = "¿Está seguro que desea dar de baja al usuario '" + idObj[0].id +"'?";
+                $('#modal-lg-baja').modal('show');
             }
+            
+            function rellenarModalAlta(idObj){
+                console.log(idObj[0].id);
+                // Setea id de objeto en el botón de cerrar (modal ALTA)
+                buttonD = document.getElementById('buttonAlta');
+                buttonD.setAttribute("idObj", idObj[0].id); 
+                
+                // Genera mensaje de confirmación en modal ALTA y lo muestra
+                pElement = document.getElementById('formMensajeALTA');
+                pElement.innerHTML = "¿Está seguro que desea dar de alta al usuario '" + idObj[0].id +"'?";
+                $('#modal-lg-alta').modal('show');
+            }
+            
             
             /* Función genérica de eliminación de objeto.
                Invocada en botón "Eliminar" de modal DELETE */
+            /*
             function eliminarObjeto_usuario(objID) {
                 $.ajax({
                     url: '../../SvUsuario',
@@ -215,6 +280,27 @@
                     data: {
                         'id_user': objID.getAttribute("idObj"),
                         'action': 'delete',
+                    },
+                    success: function (data) {
+                        if (data.at(-1) == "dependencia"){
+                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
+                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
+                    }
+                });
+            } */
+    
+            function bajaObjeto_usuario(objID){
+                console.log(objID.getAttribute("idObj"));
+                $.ajax({
+                    url: '../../SvUsuario',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'id_user': objID.getAttribute("idObj"),
+                        'action': 'baja',
                     },
                     success: function (data) {
                         if (data.at(-1) == "dependencia"){
@@ -256,9 +342,10 @@
             }
             
             function addObjeto(){
+                /*
                 console.log(document.getElementById('nombreUserInputADD').value);
                 console.log(document.getElementById('passUser1ADD').value);
-                console.log(document.getElementById('selectEmpAsocADD').value);
+                console.log(document.getElementById('selectEmpAsocADD').value); */
                 $.ajax({
                     url: '../../SvUsuario', 
                     type: 'POST',

@@ -58,20 +58,22 @@ public class SvUsuario extends HttpServlet {
         if (ajax){
             String action = request.getParameter("action");
             System.out.println(action);
-            if ("delete".equals(action)) {
-                String userId = request.getParameter("id_user");
-                try {
-                    Cl.eliminarObjetoUsuario(userId);
-                    respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
-                } catch (NonexistentEntityException ex) {
-                    Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (RollbackException e){                                                      // Controla la ex que indica que otros obj dependen de él.
-                    respuestaAjax.add("dependencia");
-                }
-                response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().write(gson.toJson(respuestaAjax));
-            }
+//            if ("delete".equals(action)) {
+//                String userId = request.getParameter("id_user");
+//                try {
+//                    Cl.eliminarObjetoUsuario(userId);
+//                    respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
+//                } catch (NonexistentEntityException ex) {
+//                    Logger.getLogger(SvTipoHabitacion.class.getName()).log(Level.SEVERE, null, ex);
+//                } catch (RollbackException e){                                                      // Controla la ex que indica que otros obj dependen de él.
+//                    respuestaAjax.add("dependencia");
+//                }
+//                response.setContentType("application/json;charset=UTF-8");
+//                response.getWriter().write(gson.toJson(respuestaAjax));
+//            }
             
+            
+            /* ACCIONES */ 
             if ("edit".equals(action)){
                 String userId = request.getParameter("id_user");
                 String passw = request.getParameter("new_pass");
@@ -104,6 +106,18 @@ public class SvUsuario extends HttpServlet {
                 response.getWriter().write(gson.toJson(respuestaAjax));
             }
             
+            if ("baja".equals(action)){
+                String nombreUser = request.getParameter("id_user");
+                System.out.println(nombreUser);
+                try {
+                    Cl.darBajaUsuario(nombreUser);
+                } catch (Exception ex) {
+                    Logger.getLogger(SvUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                respuestaAjax.add("/Reservas/GESTION/LIST/Usuarios.jsp");
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
+            }
             
         }else{
             

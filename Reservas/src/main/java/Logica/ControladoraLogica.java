@@ -203,6 +203,13 @@ public class ControladoraLogica {
     }
     
     
+    public void darBajaUsuario(String nombreUser) throws Exception {
+        Usuario objUsuario = obtenerUser(nombreUser);
+        objUsuario.setEstado(false);
+        Cp.editarUsuario(objUsuario);
+    }
+    
+    
     // HUESPED
     public void crearObjetoHuesped(String profesion, int dni, String nombre,
             String apellido, LocalDate fechaNac, String direccion, String telefono) {

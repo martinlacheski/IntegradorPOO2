@@ -11,6 +11,7 @@ public class Usuario implements Serializable {
 
     @Basic
     String passUsuario;
+    boolean estado;
 
     @OneToOne
     Empleado empleadoAsoc;
@@ -18,9 +19,10 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(String nombreUsuario, String passUsuario, Empleado empleadoAsoc) {
+    public Usuario(String nombreUsuario, String passUsuario, boolean estado, Empleado empleadoAsoc) {
         this.nombreUsuario = nombreUsuario;
         this.passUsuario = passUsuario;
+        this.estado = estado;
         this.empleadoAsoc = empleadoAsoc;
     }
 
@@ -40,6 +42,14 @@ public class Usuario implements Serializable {
         this.passUsuario = passUsuario;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     public Empleado getEmpleadoAsoc() {
         return empleadoAsoc;
     }
@@ -48,6 +58,7 @@ public class Usuario implements Serializable {
         this.empleadoAsoc = empleadoAsoc;
     }
 
+    
     @Override
     public String toString() {
         return nombreUsuario;
