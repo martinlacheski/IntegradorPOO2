@@ -81,8 +81,9 @@ public class ControladoraLogica {
     
     
     // EMPLEADOS
-    public void crearObjetoEmpleado(Cargo cargo, int dni, String nombre,
-            String apellido, LocalDate fechaNac, String direccion, String telefono) {
+    public String crearObjetoEmpleado(Cargo cargo, int dni, String nombre,
+        String apellido, LocalDate fechaNac, String direccion, String telefono) {
+        String error;
         Empleado objetoEmpleado = new Empleado();
         objetoEmpleado.setCargo(cargo);
         objetoEmpleado.setDni(dni);
@@ -92,7 +93,8 @@ public class ControladoraLogica {
         objetoEmpleado.setDireccion(direccion);
         objetoEmpleado.setTelefono(telefono);
         objetoEmpleado.setEstado(true);
-        Cp.persistirEmpleado(objetoEmpleado);
+        error = Cp.persistirEmpleado(objetoEmpleado);
+        return error;
     }
     
     public Empleado obtenerEmpleado (int dni){
@@ -209,10 +211,17 @@ public class ControladoraLogica {
         Cp.editarUsuario(objUsuario);
     }
     
+    public void darAltaUsuario(String nombreUser) throws Exception {
+        Usuario objUsuario = obtenerUser(nombreUser);
+        objUsuario.setEstado(true);
+        Cp.editarUsuario(objUsuario);
+    }
+    
     
     // HUESPED
-    public void crearObjetoHuesped(String profesion, int dni, String nombre,
-            String apellido, LocalDate fechaNac, String direccion, String telefono) {
+    public String crearObjetoHuesped(String profesion, int dni, String nombre,
+        String apellido, LocalDate fechaNac, String direccion, String telefono) {
+        String error;
         Huesped objetoHuesped = new Huesped();
         objetoHuesped.setProfesion(profesion);
         objetoHuesped.setDni(dni);
@@ -221,7 +230,8 @@ public class ControladoraLogica {
         objetoHuesped.setFechaNac(fechaNac);
         objetoHuesped.setDireccion(direccion);
         objetoHuesped.setTelefono(telefono);
-        Cp.persistirHuesped(objetoHuesped);
+        error = Cp.persistirHuesped(objetoHuesped);
+        return error;
     }
     
     public Huesped obtenerHuesped(int dni){

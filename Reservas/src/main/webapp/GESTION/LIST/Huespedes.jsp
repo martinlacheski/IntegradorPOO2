@@ -46,7 +46,7 @@
                         <!-- TABLA DE LIST -->
                         <div class="card">
                             <div class=" card-header bg-primary">
-                                <p class="card-title" style="margin-top: 8px;"> Huepsedes registrados en el Sistema</p>
+                                <p class="card-title" style="margin-top: 8px;"> Huespedes registrados en el Sistema</p>
                                 <button type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
                                     Agregar Nuevo Huesped
                                     <i class="fas fa-user-plus"></i>
@@ -242,6 +242,63 @@
                     },
                     success: function (data) {
                         location.replace(data[0]);
+                    }
+                });
+            }
+            
+            function addObjeto(){
+                /*
+                console.log(document.getElementById('dniHuespedADD').value);
+                console.log(document.getElementById('fechaNacHuespedADD').value);
+                console.log(document.getElementById('apellidoHuespedADD').value);
+                console.log(document.getElementById('nombreHuespedADD').value);
+                console.log(document.getElementById('profesionHuespedADD').value);
+                console.log(document.getElementById('telefonoHuespedADD').value);
+                console.log(document.getElementById('direccionHuespedADD').value); */
+                
+                $.ajax({
+                    url: '../../SvHuesped', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'add',
+                        'dni': document.getElementById('dniHuespedADD').value,
+                        'fechaNac': document.getElementById('fechaNacHuespedADD').value,
+                        'apellido': document.getElementById('apellidoHuespedADD').value,
+                        'nombre' : document.getElementById('nombreHuespedADD').value,
+                        'profesion' : document.getElementById('profesionHuespedADD').value,
+                        'telefono' : document.getElementById('telefonoHuespedADD').value,
+                        'direccion': document.getElementById('direccionHuespedADD').value
+                    },
+                    success: function (data) {
+                        if (data.at(-1) == "repetido"){
+                            document.getElementById('cardErroresADD').removeAttribute("hidden");
+                            document.getElementById('erroresFormADD').innerHTML = "Ya existe un registro igual a este."; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
+                    }
+                });
+            }
+            
+             /* Función genérica de eliminación de objeto.
+               Invocada en botón "Eliminar" de modal DELETE */
+            function eliminarObjeto_huesped(objID) {
+                $.ajax({
+                    url: '../../SvHuesped',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'id_huesped': objID.getAttribute("idObj"),
+                        'action': 'delete',
+                    },
+                    success: function (data) {
+                        if (data.at(-1) == "dependencia"){
+                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
+                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
                     }
                 });
             }

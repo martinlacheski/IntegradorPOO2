@@ -86,18 +86,15 @@ public class SvCargo extends HttpServlet {
             if ("add".equals(action)){
                 String nombreCargo = request.getParameter("cargo");
                 int sueldo = Integer.parseInt(request.getParameter("sueldo"));
-                System.out.println(nombreCargo);
-                System.out.println(sueldo);
                 error = Cl.crearObjetoCargo(nombreCargo, sueldo);
                 if ("repetido".equals(error)){
                     respuestaAjax.add(error);
                 }else{
-                    respuestaAjax.add("/Reservas/GESTION/LIST/TiposHabitaciones.jsp");
+                     respuestaAjax.add("/Reservas/GESTION/LIST/Cargos.jsp");
                 }
                 response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(gson.toJson(respuestaAjax));
             }
-        } else {
         }
     }
 

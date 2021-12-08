@@ -21,7 +21,7 @@
             <%@include file="../EDIT/UsuarioModalEDIT.jsp"%>
 
             <!-- MODAL ELIMINAR EMPLEADO -->
-            <%//@include file="../DEL/UsuarioModalDELETE.jsp"%>
+            <%@include file="../DEL/UsuarioModalDELETE.jsp"%>
             
             <!-- MODAL BAJA EMPLEADO -->
             <%@include file="../DEL/UsuarioModalBAJA.jsp"%>
@@ -88,7 +88,7 @@
                                                         <% if (estado){ %>
                                                             <td><small class="badge badge-success">Activo</small></td>
                                                         <% }else { %>
-                                                            <td><span class="badge badge-danger">De baja</span></td>
+                                                            <td><span class="badge badge-danger">Inactivo</span></td>
                                                         <%} %>
                                                         <td class="align-content-center">
                                                             <button id="<%=nombre_usuario%>"
@@ -119,6 +119,14 @@
                                                                 <i class="fas fa-chevron-up"></i>
                                                             </button>  
                                                         <% } %>
+                                                            <button id="<%=nombre_usuario%>" 
+                                                                    onclick="rellenarModalDelete(<%=nombre_usuario%>)"
+                                                                    type="button"
+                                                                    class="btn btn-danger btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-baja">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </button>
                                                         </td>
                                                     </tr>  
 
@@ -231,7 +239,7 @@
                     }
                 });
             }
-            /*
+            
             function rellenarModalDelete(idObj){
                 console.log(idObj[0].id);
                 // Setea id de objeto en el botón de cerrar (modal DELETE)
@@ -242,7 +250,7 @@
                 pElement = document.getElementById('formMensajeDELETE');
                 pElement.innerHTML = "¿Está seguro que desea eliminar al usuario '" + idObj[0].id +"'?";
                 $('#modal-lg-delete').modal('show');
-            } */
+            } 
             
             function rellenarModalBaja(idObj){
                 console.log(idObj[0].id);
@@ -271,7 +279,7 @@
             
             /* Función genérica de eliminación de objeto.
                Invocada en botón "Eliminar" de modal DELETE */
-            /*
+
             function eliminarObjeto_usuario(objID) {
                 $.ajax({
                     url: '../../SvUsuario',
@@ -290,10 +298,9 @@
                         }
                     }
                 });
-            } */
+            }
     
             function bajaObjeto_usuario(objID){
-                console.log(objID.getAttribute("idObj"));
                 $.ajax({
                     url: '../../SvUsuario',
                     type: 'POST',
@@ -303,12 +310,22 @@
                         'action': 'baja',
                     },
                     success: function (data) {
-                        if (data.at(-1) == "dependencia"){
-                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
-                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
-                        } else {
-                            location.replace(data.at(-1));
-                        }
+                        location.replace(data.at(-1));
+                    }
+                });
+            }
+            
+            function altaObjeto_usuario(objID){
+                $.ajax({
+                    url: '../../SvUsuario',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'id_user': objID.getAttribute("idObj"),
+                        'action': 'alta',
+                    },
+                    success: function (data) {
+                        location.replace(data.at(-1));
                     }
                 });
             }

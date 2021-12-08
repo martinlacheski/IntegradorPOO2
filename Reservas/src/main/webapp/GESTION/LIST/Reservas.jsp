@@ -80,7 +80,7 @@
                                         <div class="col-6">
                                             <label for="cantPersonas"> Cantidad de Personas </label>
                                             <div class="input-group">
-                                                <input id="cantPersonas" name="cantPersonas" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" type="text" class="form-control checkCantPer">
+                                                <input id="cantPersonas" name="cantPersonas" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" type="text" class="form-control checkCantPer">
                                             </div>
                                         </div>
 
@@ -210,7 +210,7 @@
                                                         <% if (estado){ %>
                                                             <td><small class="badge badge-success">Activa</small></td>
                                                         <% }else { %>
-                                                            <td><span class="badge badge-danger">De baja</span></td>
+                                                            <td><span class="badge badge-danger">Inactiva</span></td>
                                                         <%} %>
                                                         <td><%=checkInReser%></td>
                                                         <td><%=checkOutReser%></td>

@@ -25,11 +25,11 @@ public class SvEmpleado extends HttpServlet {
     ControladoraLogica Cl = new ControladoraLogica();
     Gson gson = new Gson();
     List<String> respuestaAjax = new ArrayList<>();
+    String error;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
     }
 
     @Override
@@ -52,6 +52,29 @@ public class SvEmpleado extends HttpServlet {
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         if (ajax){
             String action = request.getParameter("action");
+            
+            if ("add".equals(action)){
+                int dni = Integer.parseInt(request.getParameter("dni"));
+                LocalDate fechaNac = LocalDate.parse(request.getParameter("fechaNac"));
+                String apellido = request.getParameter("apellido");
+                String nombre = request.getParameter("nombre");
+                String telefono = request.getParameter("telefono");
+                String direccion = request.getParameter("direccion");
+            
+                String cargo = request.getParameter("cargo");
+                Cargo cargoObj = Cl.obtenerCargo(cargo);
+            
+                error = Cl.crearObjetoEmpleado(cargoObj, dni, nombre,
+                        apellido, fechaNac, direccion, telefono);
+                if ("repetido".equals(error)){
+                    respuestaAjax.add(error);
+                }else{
+                    respuestaAjax.add("/Reservas/GESTION/LIST/Empleados.jsp");
+                }
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(gson.toJson(respuestaAjax));
+            }
+            
             // Obtiene idObj, lo elimina y devuelve el link hacia donde ir.
             if ("delete".equals(action)) {
                 int dni = Integer.parseInt(request.getParameter("id_empleado"));
@@ -85,21 +108,6 @@ public class SvEmpleado extends HttpServlet {
                     Logger.getLogger(SvHabitacion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-        }else{
-            int dni = Integer.parseInt(request.getParameter("dni"));
-            LocalDate fechaNac = LocalDate.parse(request.getParameter("fechaNac"));
-            String apellido = request.getParameter("apellido");
-            String nombre = request.getParameter("nombre");
-            String telefono = request.getParameter("telefono");
-            String direccion = request.getParameter("direccion");
-            
-            String cargo = request.getParameter("cargo");
-            Cargo cargoObj = Cl.obtenerCargo(cargo);
-            
-            Cl.crearObjetoEmpleado(cargoObj, dni, nombre, apellido, fechaNac, direccion, telefono);
-            
-            response.sendRedirect("/Reservas/GESTION/LIST/Empleados.jsp");
         }
         
     }

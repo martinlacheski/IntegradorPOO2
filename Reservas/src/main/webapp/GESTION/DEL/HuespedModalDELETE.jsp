@@ -14,6 +14,14 @@
                         <p id="formMensajeDELETE"></p>
                     </div>
                 </div>
+                
+                <!-- Errores -->
+                <div id="cardErroresDEL" hidden class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
+                    <p id="erroresFormDEL"> </p>
+                            
+                </div>
                     
                 <div class="card-footer">
                     <button id="buttonDelete" type="button" idObj="" onclick="eliminarObjeto_huesped(this)" class="btn btn-danger float-right">Eliminar</button>

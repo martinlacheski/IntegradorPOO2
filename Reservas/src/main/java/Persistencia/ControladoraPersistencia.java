@@ -97,13 +97,18 @@ public class ControladoraPersistencia {
     }
     
     // EMPLEADO
-    public void persistirEmpleado(Empleado objEmp) {
+    public String persistirEmpleado(Empleado objEmp) {
         try {
             empJPA.create(objEmp);
-        } catch (Exception ex) {
+            return "ok";
+        }catch (PreexistingEntityException e){
+            return "repetido";
+        }catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
+        
 
     public void bajaEmpleadoBd(Empleado objEmp) throws Exception {
         empJPA.edit(objEmp);
@@ -203,12 +208,16 @@ public class ControladoraPersistencia {
 
     
     // HUESPED
-    public void persistirHuesped(Huesped objHuesped) {
+    public String persistirHuesped(Huesped objHuesped) {
         try {
             huesJPA.create(objHuesped);
-        } catch (Exception ex) {
+            return "ok";
+        }catch (PreexistingEntityException e){
+            return "repetido";
+        }catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
     public Huesped getHuesped(int dni) {

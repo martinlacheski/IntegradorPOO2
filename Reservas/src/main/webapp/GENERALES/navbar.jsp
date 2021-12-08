@@ -19,7 +19,7 @@
                     <a href="../LIST/Reservas.jsp" class="nav-link"><i class="far fa-list-alt"></i> Crear Reserva</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/HOTEL/GESTION/Informes.jsp" class="nav-link"><i class="far fa-chart-bar"></i> Informes</a>
+                    <a href="../LIST/Informes.jsp" class="nav-link"><i class="far fa-chart-bar"></i> Informes</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Administración</a>

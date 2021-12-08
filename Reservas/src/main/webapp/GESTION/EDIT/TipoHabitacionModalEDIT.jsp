@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label for="capacidadPersonas">CAPACIDAD DE PERSONAS</label>
                             <input autocomplete="off" value="" type="text"
-                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
                                    class="form-control" name="capacidadPersonas",
                                    id="capacidadPersonasTipo_edit">
                          </div>

@@ -169,7 +169,40 @@
         </script>
 
         <script>
-             function rellenarModalEdit(idObj) {
+            
+            function addObjeto(){
+                console.log(document.getElementById('dniEmpleadoADD').value);
+                console.log(document.getElementById('fechaNacEmpleadoADD').value);
+                console.log(document.getElementById('apellidoEmpleadoADD').value);
+                console.log(document.getElementById('nombreEmpleadoADD').value);
+                console.log(document.getElementById('cargoEmpleadoADD').value);
+                console.log(document.getElementById('direccionEmpleadoADD').value);
+                
+                $.ajax({
+                    url: '../../SvEmpleado', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'add',
+                        'dni': document.getElementById('dniEmpleadoADD').value,
+                        'fechaNac': document.getElementById('fechaNacEmpleadoADD').value,
+                        'apellido': document.getElementById('apellidoEmpleadoADD').value,
+                        'nombre' : document.getElementById('nombreEmpleadoADD').value,
+                        'cargo' : document.getElementById('cargoEmpleadoADD').value,
+                        'direccion': document.getElementById('direccionEmpleadoADD').value,
+                    },
+                    success: function (data) {
+                        if (data.at(-1) == "repetido"){
+                            document.getElementById('cardErroresADD').removeAttribute("hidden");
+                            document.getElementById('erroresFormADD').innerHTML = "Ya existe un registro igual a este."; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
+                    }
+                });
+            }
+            
+            function rellenarModalEdit(idObj) {
                 $('#modal-lg-editar').modal('show');
                 $.ajax({
                     url: '../../SvEmpleado', // 

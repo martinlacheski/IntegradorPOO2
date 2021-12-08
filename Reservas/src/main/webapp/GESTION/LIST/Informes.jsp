@@ -50,15 +50,6 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true">Reservas por Huesped</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false">Informe X</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-messages-tab" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Informe Y</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Informe Z</a>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="card-body">
@@ -148,7 +139,7 @@
                                                         </div>
                                             </div>
                                     </div>
-                                    <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                    <div class="tab-pane fade" id="custom-tabs-four-profile-tab" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                         hola2
                                     </div>
                                     <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="custom-tabs-four-messages-tab">

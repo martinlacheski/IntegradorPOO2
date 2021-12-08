@@ -233,7 +233,7 @@
                         'sueldo' : document.getElementById('sueldo_edit').value,
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        location.replace(data.at(-1));
                     }
                 });
             }

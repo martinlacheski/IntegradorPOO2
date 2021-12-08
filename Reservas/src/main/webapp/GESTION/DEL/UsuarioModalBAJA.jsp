@@ -20,16 +20,15 @@
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
                     <p id="erroresFormDEL"> </p>
-                            
                 </div>
                         
                 <div class="card-footer">
-                    <button id="buttonBaja" type="button" idObj="" onclick="bajaObjeto_usuario(this)" class="btn btn-danger float-right">Dar de Baja</button>
+                    <button id="buttonBaja" type="button" idObj="" onclick="bajaObjeto_usuario(this)" class="btn btn-danger float-right">Dar de Baja
+                    </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">Cerrar</span>
                     </button>
                 </div>
-                    
             </div>
         </div>
     </div>

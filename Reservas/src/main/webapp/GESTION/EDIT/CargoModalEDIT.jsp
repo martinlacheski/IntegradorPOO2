@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label for="sueldo">SUELDO:</label>
                             <input id="sueldo_edit" autocomplete="off" value="" type="text"
-                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
                                    class="form-control" name="sueldo">
                          </div>
                     </div>

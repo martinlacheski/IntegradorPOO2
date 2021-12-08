@@ -17,7 +17,7 @@
                             <div class="col-6">
                                 <label for="dni">DNI:</label>
                                 <p id="pErrorADD" hidden style="color:red"></p>
-                                <input readonly id="dniEmp_edit" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="dni"><br>
+                                <input readonly id="dniEmp_edit" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="dni"><br>
                             </div>
                             <div class="col-6">
                                 <label for="fechaNac">Fecha de Nacimiento:</label>
@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-6">
                                 <label  for="telefono">Telefono:</label>
-                                <input id="telefono_edit" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="telefono"><br>
+                                <input id="telefono_edit" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" name="telefono"><br>
                             </div>
                         </div>
                             <label for="direccion">Dirección:</label>
