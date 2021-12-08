@@ -11,41 +11,39 @@ En este documento se desarrola un plan tentativo que abarca las historias de usu
 ### Administrador
 
 1. Como administrador, quiero poder crear nuevos usuarios en el sistema de manera tal que si un Gerente o Empleado no tiene usuario, no pueda usar el sistema. 
-2. Como Administrador, quiero poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajor.
-3. Como administrador, quiero poder modificar los datos de los usuarios en el sistema en caso de que los Empleados o Gerentes se olviden, pierdan o comprometan sus contraseñas o nombre de usuario.
+2. Como Administrador, quiero poder asociar un usuario a un empleado o Gerente de manera tal que se sepa qué usuario pertenece a qué trabajador.
+3. Como administrador, quiero poder modificar los datos de los usuarios en el sistema en caso de que los Empleados o Gerentes se olviden, pierdan o comprometan sus credenciales.
 4. Como administrador, quiero poder dar de baja a un usuario del sistema de manera tal que pueda revocar completo acceso a dicho Empleado/Gerente asociado al usuario en cuestión.
-5. Como administrador, quiero poder visualizar una lista de los usuarios que se tienen registrados para poder ver rápidamente a los que se tienen registrados. Dicha lista debe tener a qué empleado o Gerente está asociado cada usuario.   
+5. Como administrador, quiero poder visualizar una lista de los usuarios que se tienen registrados para poder visualizarlos rápidamente. Dicha lista debe tener a qué empleado o Gerente está asociado cada usuario.   
 
 ### Gerente
 1. Como gerente, quiero poder agregar habitaciones al sistema para poder tener un registro de las mismas. 
-2. Como gerente, quiero poder eliminar una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. 
+2. Como gerente, quiero poder dar de baja una habitación del sistema en caso de que la misma no se utilice más o se haya cargado incorrectamente. 
 3. Como gerente, quiero poder modificar los datos de una habitación en caso de que las mismas sufran cambios dentro del establecimiento.
-4. Como gerente, quiero poder obtener un listado de las habitaciones ocupadas para poder ver rápidamente a qué capacidad está el establecimiento
+4. Como gerente, quiero poder obtener un listado de las habitaciones ocupadas para poder ver rápidamente el nivel de ocupación del establecimiento.
 5. Como gerente, quiero poder obtener un listado de las habitaciones disponibles para poder rápidamente asignarlas a nuevos huespedes. 
-6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones sean clasificables. 
-7. Como gerente, quiero poder modificar tipos de habitaciones llegado al caso de que las características de éstas varíen en el tiempo. 
+6. Como gerente, quiero poder agregar nuevos tipos de habitaciones de manera tal que las habitaciones puedan clasificarse. 
+7. Como gerente, quiero poder modificar tipos de habitaciones, llegado al caso de que las características de éstas varíen en el tiempo. 
 8. Como gerente quiero poder asociar una habitación a un tipo de habitación para poder clasificarlas.
 9. Como gerente quiero poder eliminar un tipo de habitación en caso de que este no se utilice más. 
 10. Como gerente quiero poder listar los tipos de habitaciones que tenga registradas para poder verlas rápidamente. 
 11. Como gerente, quiero poder marcar a un huesped como no admitido en caso de que el mismo pierda el derecho de adminisión al establecimiento de manera tal que éste no pueda realizar nuevas reservas.
 12. Como gerente, quiero poder agregar a nuevos empleados para poder registrar a quienes trabajan en el establecimiento. 
 13. Como gerente, quiero poder modificar los datos de empleados ya registrados llegado al caso que se carguen incorrectamente o los mismos cambien sus datos personales.
-14. Como gerente, quiero poder dar de baja a empleados registrados llegado al caso de que dejen de trabajar en el establecimiento.
+14. Como gerente, quiero poder dar de baja a empleados registrados en caso de que dejen de trabajar en el establecimiento.
 15. Como gerente, quiero poder visualizar una lista de los empleados que se tienen registrados para poder ver rápidamente quienes conforman el equipo de trabajo actual. 
-16. Como gerente quiero obtener un informe en donde se den a conocer todas las ganancias diarios y/o mensuales conforme a las reservas realizadas de las habitaciones.
-
-
+16. Como gerente quiero obtener un informe en donde se den a conocer todas las ganancias diarias y/o mensuales conforme a las reservas realizadas de las habitaciones.
 
 
 ### Empleado
 1. Como empleado, quiero poder registrar una nueva reserva de habitación para poder saber qué huespedes serán hospedados y quien será el responsable de la misma. 
-2. Como empleado, quiero poder registrar cuándo cerá el *chek-in* de una reserva y cuando será el *check-out* de manera que se pueda saber el periodo de tiempo en el que las habitaciones estarán ocupadas. 
-3. Como empleado, quiero poder saber si un rango de fechas de reservación para una habitación determinada se solapa con otra reservación, de manera tal que se pueda redirecionar al huesped hacia otra habitación. 
+2. Como empleado, quiero poder registrar cuándo será el *check-in* de una reserva y cuando será el *check-out* de manera que se pueda saber el periodo de tiempo en el que las habitaciones estarán ocupadas. 
+3. Como empleado, quiero poder saber si un rango de fechas de reserva para una habitación determinada se solapa con otra reserva, de manera tal que se pueda seleccionar otra habitación en caso de que la misma este reservada. 
 4. Como empleado, quiero poder saber si la cantidad de personas en una reserva sobrepasa la capacidad de la habitación para poder informarle al huesped que debe elegir otra habitación, o que haga otra reserva.
 5. Como empleado, quiero saber el monto de la reserva concorde al tipo de habitación y a la cantidad de días de estancia en el establecimiento.
 6. Como empleado, quiero poder cancelar una reserva en casos en donde el huesped decida hacerlo.
-7. Como empleado quiero poder agregar nuevos huspedes de manera tal que se pueda tener un registro de los mismos. 
-8. Como empelado quiero poder modificar datos de huespedes llegado al caso que se carguen incorrectamente o los mismos cambien sus datos personales.
+7. Como empleado quiero poder agregar nuevos huespedes de manera tal que se pueda tener un registro de los mismos. 
+8. Como empleado quiero poder modificar datos de huespedes llegado al caso que se carguen incorrectamente o los mismos cambien sus datos personales.
 9. Como empleado quiero poder dar de baja a huespedes en caso de que sus datos ya no sean necesarios en el establecimiento.
 10. Como empleado quiero poder obtener un listado de todos los huespedes registrados en el sistema hasta la fecha actual.
 11. Como empleado quiero poder obtener un listado de todas las reservas realizadas en un determinado día. 
