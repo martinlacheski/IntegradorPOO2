@@ -20,7 +20,7 @@ Conforme a lo que respecta la iteración 2, se han elegido las siguientes histor
 ## Trabajo en equipo y Tareas
 Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del equipo.
 
-| Quiroga Leonardo | Martin Lacheski | Jolu |
+| Quiroga Leonardo | Martin Lacheski | Jose Luis Montejano |
 | ----- | ------ |------ |
 | Creación de clases Empleado, Persona, Trabajador, Huesped | Codificación en capa logica y persistencia referente a la eliminación y modificación de Tipos de Habitación | Codificación en capa de templates para disposición del listado de Tipos de Habitación |
 | Codificación en capa Servlets para obtención y tratado de datos de Tipos de Habitación | Creación de clases Cargo y Usuario | Codificación de Formularios para ALTA y modificación de Empleados en capa de templates |
@@ -55,7 +55,7 @@ Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del
 ## Casos de Uso
 *(Se omiten casos de uso asociados a Tipo de Habitación debido a su gran semenjanza con los casos de uso de habitaciones, ademas de compartir la mayoría de los elementos gráficos)*
 
-1. Agregar una Empleado
+1. Agregar un Empleado
     - El usuario visita la página web y se dirige a la sección de Empleados, haciendo clic en el dropbox de Administación > Gestión de Empleados.
     - El sistema lo redirecciona a la pantalla apropiada.
     - El usuario hace clic en el botón "Agregar Nuevo Empleado". 
@@ -76,7 +76,7 @@ Las tareas se dividen de la siguiente manera, siendo cada columna un miembro del
     - El sistema esconde el modal, elimina los datos en la base de datos y actualiza la página para reflejar los datos modificados en el listado.
 
 4. Agregar un nuevo Usuario
-     - El usuario visita la página web y se dirige a la sección de Usuarios, haciendo clic en el dropbox de Administación > Gestión de Usuarios.
+    - El usuario visita la página web y se dirige a la sección de Usuarios, haciendo clic en el dropbox de Administación > Gestión de Usuarios.
     - El sistema lo redirecciona a la pantalla apropiada.
     - El usuario hace clic en el botón "Agregar Nuevo Usuario". 
     - El sistema despliega un formulario tipo modal con los datos necesarios para un Usuario.
