@@ -163,6 +163,8 @@
                                         <p style="display: inline; color:red;" hidden id="pErrorNoCheckInOut">No ha ingresado <em>check-In</em> o <em>check-out</em>.<strong> Verifique que hayan dos fechas</strong><br></p>
                                         <p style="display: inline; color:red;" hidden id="pErrorOverlap">Las fechas de <em>check-In</em> y <em>check-out</em> se superponen con otras reservas.<strong> Ingrese otras fechas o cambie la habitación</strong><br></p>
                                         <p style="display: inline; color:red;" hidden id="pErrorCantPersonas">La cantidad de personas de la reserva es mayor a la capacidad de la habitación elegida<br></p>
+                                        <p style="display: inline; color:red;" hidden id="pErrorCantPersonasCero">No puede crear una reserva si la misma no albergará personas.<br></p>
+                                        <p style="display: inline; color:red;" hidden id="pErrorNoHayHuesped">No puede crear una reserva si antes no asigna a un huesped responsable.<br></p>
                                         <p style="display: inline; color:red;" hidden id="pErrorHuespedResp">No ha seleccionado un Huesped Responsable<br></p>
                                         <p style="display: inline; color:red;" hidden id="pErrorFechaSalidaMenor">La fecha de check-out es menor que la de check-in. <strong>Verifique</strong><br></p>
                                         <p style="display: inline; color:green;" hidden id="pTodoOkOverlap"><strong>Todo ok</strong><br></p>
@@ -401,18 +403,29 @@
                 }) */   
                 
                 function controlarCantPersonas(){
+                    // Se esconden todos los errores por defecto.
                     document.getElementById('pErrorCantPersonas').setAttribute('hidden', '');
-                    document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
+                    document.getElementById('pErrorCantPersonasCero').setAttribute('hidden', '');
+                    document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right");
                     
+                    // Obtención de datos
                     cant_personas_hab = $('#habAReservar option:selected').attr('capacidad');
                     cant_personas_reser = document.getElementById('cantPersonas').value;
                     
-                    // Muestra errores y desactiva botón de reserva
+                    // Muestra errores
                     if (cant_personas_hab && cant_personas_reser){
                         if (parseInt(cant_personas_hab) < parseInt(cant_personas_reser)){
                             document.getElementById('pErrorCantPersonas').removeAttribute('hidden');
-                            document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
-                        } 
+                            return false;
+                        }else{
+                            // Si se intenta registrar una reserva con 0 o menos personas.
+                            if(parseInt(cant_personas_reser) <= 0){
+                                document.getElementById('pErrorCantPersonasCero').removeAttribute('hidden');
+                                return false;
+                            }else {
+                                return true;
+                            }
+                        }
                     }
                    
                 }
@@ -436,51 +449,75 @@
                             document.getElementById('precioReserva').setAttribute("value", cant_dias_reserva * parseInt(preciohab));
                             return true;
                         } else{
-                            // Se desabilita el botón de generar reserva y se muestra el error
+                            // Se muestra el error
                             document.getElementById('pErrorFechaSalidaMenor').removeAttribute('hidden');
-                            document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
                             return false;
                         }
+                    }
+                }
+                
+                function chequearHuesped(){
+                    // Se esconde el error por defecto. 
+                    document.getElementById('pErrorNoHayHuesped').setAttribute('hidden', '');
+                    
+                    // Se obtiene el huesped
+                    huesped = document.getElementById('huesResponsable').value;
+                    
+                    // Se chequea si se eligió un huesped. El valor por defecto es "---" (ningún huesped elegido)
+                    if (huesped === '---'){
+                        document.getElementById('pErrorNoHayHuesped').removeAttribute('hidden');
+                        return false;
+                    }else{
+                        return true;
                     }
                 }
                     
                 function generarReserva(){
                     /*
-                                console.log(document.getElementById('huesResponsable').value);
-                                console.log(document.getElementById('cantPersonas').value);
-                                console.log(document.getElementById('habAReservar').value);
-                                console.log(document.getElementById('checkIn').value);
-                                console.log(document.getElementById('checkOut').value);
-                                console.log(document.getElementById('precioReserva').value);
-                 */
-                    chequearFechas();
-                    controlarCantPersonas()
+                    console.log(document.getElementById('huesResponsable').value);
+                    console.log(document.getElementById('cantPersonas').value);
+                    console.log(document.getElementById('habAReservar').value);
+                    console.log(document.getElementById('checkIn').value);
+                    console.log(document.getElementById('checkOut').value);
+                    console.log(document.getElementById('precioReserva').value); */
+                    
+                    /* Se esconde el error de overlap por defecto */
                     document.getElementById('pErrorOverlap').setAttribute("hidden", "");
-                    $.ajax({
-                        url: '../../SvReserva', 
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            'action': 'add',
-                            'huesped' : document.getElementById('huesResponsable').value,
-                            'cant_personas' : document.getElementById('cantPersonas').value,
-                            'habAReservar' : document.getElementById('habAReservar').value,
-                            'checkIn' : document.getElementById('checkIn').value,
-                            'checkOut' : document.getElementById('checkOut').value,
-                            'precioReserva' : document.getElementById('precioReserva').value,
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data.at(-1) == "superposicion"){
-                                document.getElementById('pErrorOverlap').removeAttribute("hidden");
-                            } else {
-                                location.replace(data.at(-1));
+                    
+                    /* Si ambas funciones devuelven true, todo ok */
+                    fechaOk = chequearFechas();
+                    cantPersonasOk = controlarCantPersonas();
+                    huespedOk = chequearHuesped();
+                    console.log(fechaOk);
+                    console.log(cantPersonasOk);
+                     console.log(chequearHuesped());
+                    /*
+                    if (fechaOk && cantPersonasOk){
+                       $.ajax({
+                            url: '../../SvReserva', 
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                'action': 'add',
+                                'huesped' : document.getElementById('huesResponsable').value,
+                                'cant_personas' : document.getElementById('cantPersonas').value,
+                                'habAReservar' : document.getElementById('habAReservar').value,
+                                'checkIn' : document.getElementById('checkIn').value,
+                                'checkOut' : document.getElementById('checkOut').value,
+                                'precioReserva' : document.getElementById('precioReserva').value,
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                if (data.at(-1) === "superposicion"){
+                                    document.getElementById('pErrorOverlap').removeAttribute("hidden");
+                                } else {
+                                    location.replace(data.at(-1));
+                                }
                             }
-                        }
-                    }); 
+                        });
+                   }  */
                 }
-                
-                
+               
                 function rellenarModalBaja(idObj){
                     // Setea id de objeto en el botón de cerrar (modal DELETE)
                     buttonD = document.getElementById('buttonDelete');
