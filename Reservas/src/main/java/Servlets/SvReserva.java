@@ -63,15 +63,17 @@ public class SvReserva extends HttpServlet {
                 // Check de superposición
                 List<Reserva> listaReserva = Cl.listaReservas();
                 for (Reserva reser: listaReserva){
-                    System.out.println("Reserva analizada" + reser.toString());
-                    
-                     if ((checkIn.isBefore(reser.getCheckOut()) || checkIn.isEqual(reser.getCheckOut()))
-                        && (reser.getCheckIn().isBefore(checkOut) || reser.getCheckIn().isEqual(checkOut))){
-                        if (reser.getHabReservada().getNroHab() == (habitacionObj.getNroHab())){
-                            superposicion = true;
-                        }else{
+                    if (reser.getEstado()){
+                        System.out.println("Reserva analizada" + reser.toString());
+                        if ((checkIn.isBefore(reser.getCheckOut()) || checkIn.isEqual(reser.getCheckOut()))
+                                && (reser.getCheckIn().isBefore(checkOut) || reser.getCheckIn().isEqual(checkOut))){
+                            if (reser.getHabReservada().getNroHab() == (habitacionObj.getNroHab())){
+                                superposicion = true;
+                            }else{
+                            }
                         }
-                     }
+                    }
+                    
                 }
                 
                 // Si existe superposición no guardamos y se lo indicamos al front-end

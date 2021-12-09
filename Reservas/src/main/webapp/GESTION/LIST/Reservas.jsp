@@ -217,7 +217,7 @@
                                                         <% if (estado_2){ %>
                                                             <td><small class="badge badge-success">Activa</small></td>
                                                         <% }else { %>
-                                                            <td><span class="badge badge-danger">Inactiva</span></td>
+                                                            <td><span class="badge badge-danger">Cancelada</span></td>
                                                         <%} %>
                                                         <td><%=checkInReser%></td>
                                                         <td><%=checkOutReser%></td>
