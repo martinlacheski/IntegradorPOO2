@@ -388,18 +388,19 @@
                     return this.getTime() === this.getTime();
                 }; 
                 
+                
                 // Generación de precio de Reserva y checks
                 $(".checks").on("click focus blur", function(){
                     chequearFechas();
                 });
                 
+                /*
                 // Control de cantidad de Personas
                 $(".checkCantPer").on("click focus blur keyup", function(){
-                    controlarCantPersonas();
-                })
+                    
+                }) */   
                 
                 function controlarCantPersonas(){
-                     // Escondemos errores
                     document.getElementById('pErrorCantPersonas').setAttribute('hidden', '');
                     document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
                     
@@ -411,15 +412,12 @@
                         if (parseInt(cant_personas_hab) < parseInt(cant_personas_reser)){
                             document.getElementById('pErrorCantPersonas').removeAttribute('hidden');
                             document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
-                            return false;
-                        }
-                    }else{
-                        return true;
+                        } 
                     }
+                   
                 }
                 
                 function chequearFechas(){
-                    // Escondemos errores
                     document.getElementById('pErrorFechaSalidaMenor').setAttribute('hidden', '');
                     document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
                     
@@ -445,46 +443,43 @@
                         }
                     }
                 }
-                
-                
                     
                 function generarReserva(){
-                    if (!chequearFechas() || !controlarCantPersonas()){
-                        console.log("algo");
-                    }else{
-                        document.getElementById('pErrorOverlap').setAttribute("hidden", "");
-                            $.ajax({
-                                url: '../../SvReserva', 
-                                type: 'POST',
-                                dataType: 'json',
-                                data: {
-                                    'action': 'add',
-                                    'huesped' : document.getElementById('huesResponsable').value,
-                                    'cant_personas' : document.getElementById('cantPersonas').value,
-                                    'habAReservar' : document.getElementById('habAReservar').value,
-                                    'checkIn' : document.getElementById('checkIn').value,
-                                    'checkOut' : document.getElementById('checkOut').value,
-                                    'precioReserva' : document.getElementById('precioReserva').value,
-                                },
-                                success: function (data) {
-                                    console.log(data);
-                                    if (data.at(-1) == "superposicion"){
-                                        document.getElementById('pErrorOverlap').removeAttribute("hidden");
-                                    } else {
-                                        location.replace(data.at(-1));
-                                    }
-                                }
-                            });
-                    }
                     /*
-                    console.log(document.getElementById('huesResponsable').value);
-                    console.log(document.getElementById('cantPersonas').value);
-                    console.log(document.getElementById('habAReservar').value);
-                    console.log(document.getElementById('checkIn').value);
-                    console.log(document.getElementById('checkOut').value);
-                    console.log(document.getElementById('precioReserva').value);
-                    */
+                                console.log(document.getElementById('huesResponsable').value);
+                                console.log(document.getElementById('cantPersonas').value);
+                                console.log(document.getElementById('habAReservar').value);
+                                console.log(document.getElementById('checkIn').value);
+                                console.log(document.getElementById('checkOut').value);
+                                console.log(document.getElementById('precioReserva').value);
+                 */
+                    chequearFechas();
+                    controlarCantPersonas()
+                    document.getElementById('pErrorOverlap').setAttribute("hidden", "");
+                    $.ajax({
+                        url: '../../SvReserva', 
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            'action': 'add',
+                            'huesped' : document.getElementById('huesResponsable').value,
+                            'cant_personas' : document.getElementById('cantPersonas').value,
+                            'habAReservar' : document.getElementById('habAReservar').value,
+                            'checkIn' : document.getElementById('checkIn').value,
+                            'checkOut' : document.getElementById('checkOut').value,
+                            'precioReserva' : document.getElementById('precioReserva').value,
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.at(-1) == "superposicion"){
+                                document.getElementById('pErrorOverlap').removeAttribute("hidden");
+                            } else {
+                                location.replace(data.at(-1));
+                            }
+                        }
+                    }); 
                 }
+                
                 
                 function rellenarModalBaja(idObj){
                     // Setea id de objeto en el botón de cerrar (modal DELETE)

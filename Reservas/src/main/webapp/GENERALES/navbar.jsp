@@ -1,6 +1,6 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-        <a href="#" class="navbar-brand">
+        <a href="../INICIO/index.jsp" class="navbar-brand">
             <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle" style="opacity: .8">
             <span class="brand-text font-weight-light">Reservas</span>
         </a>
@@ -13,7 +13,7 @@
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="../index.jsp" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                    <a href="../INICIO/index.jsp" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a href="../LIST/Reservas.jsp" class="nav-link"><i class="far fa-list-alt"></i> Crear Reserva</a>
