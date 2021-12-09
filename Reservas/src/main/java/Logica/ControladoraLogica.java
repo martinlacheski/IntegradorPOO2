@@ -43,14 +43,16 @@ public class ControladoraLogica {
 
     
     // HABITACIONES
-    public void crearObjetoHabitacion(int nroHab, String piso,
+    public String crearObjetoHabitacion(int nroHab, String piso,
             TipoHabitacion tipoHab, int precioNoche) {
+        String error;
         Habitacion objetoHabitacion = new Habitacion();
         objetoHabitacion.setNroHab(nroHab);
         objetoHabitacion.setPiso(piso);
         objetoHabitacion.setPrecioNoche(precioNoche);
         objetoHabitacion.setTipo(tipoHab);
-        Cp.persistirHabitacion(objetoHabitacion);
+        error = Cp.persistirHabitacion(objetoHabitacion);
+        return error;
     }
     
     public List listaHabitaciones() {
@@ -77,6 +79,18 @@ public class ControladoraLogica {
     
     public void eliminarObjetoHabitacion(int idHab) throws NonexistentEntityException {
         Cp.eliminarHabitacion(idHab);
+    }
+    
+    public void bajaHabitacion(int nroHab) throws Exception {
+        Habitacion objetoHabitacion = obtenerHabitacion(nroHab);
+        objetoHabitacion.setEstado(false);
+        Cp.bajaHabitacionBd(objetoHabitacion);
+    }
+    
+    public void altaHabitacion(int nroHab) throws Exception {
+        Habitacion objetoHabitacion = obtenerHabitacion(nroHab);
+        objetoHabitacion.setEstado(true);
+        Cp.altaHabitacionBd(objetoHabitacion);
     }
     
     

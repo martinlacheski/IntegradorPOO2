@@ -27,10 +27,11 @@
             <!-- MODAL DELETE HABITACIÓN -->
             <%@include file="../DEL/HabitacionModalDELETE.jsp"%>
             
-            <!-- MODAL ELIMINAR EMPLEADO -->
-            <%//@include file="./EmpleadosModalDELETE.jsp"%>
-
-
+            <!-- MODAL BAJA HABITACIÓN -->
+            <%@include file="../DEL/HabitacionModalBAJA.jsp"%>
+            
+            <!-- MODAL ALTA HABITACIÓN -->
+            <%@include file="../DEL/HabitacionModalALTA.jsp"%>
             <!-- MAIN CONTENT -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -67,14 +68,16 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:23%">Número</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width:23%">Piso</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1"  style="width:10%">Piso</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:23%">Tipo Habitación</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:23%">Estado</th>
                                                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:23%">Precio por Noche</th>
                                                         <th tabindex="0"  rowspan="1" colspan="1" style="width:8%">Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <%  
+                                                        boolean estado;
                                                         int nroHab;
                                                         String pisoHab;
                                                         TipoHabitacion tipo;
@@ -86,15 +89,40 @@
                                                             pisoHab = hab.getPiso();
                                                             tipo = hab.getTipo();
                                                             precioNocheHab = hab.getPrecioNoche();
+                                                            estado = hab.isEstado();
                                                     %>
                                                     <tr id="<%=nroHab%>" class="odd">
                                                         <td class="dtr-control sorting_1" tabindex="0"><%=nroHab%></td>
                                                         <td><%=pisoHab%></td>
                                                         <td><%=tipo%></td>
+                                                        <% if (estado){ %>
+                                                            <td><small class="badge badge-success">Activo</small></td>
+                                                        <% }else { %>
+                                                            <td><span class="badge badge-danger">Inactivo</span></td>
+                                                        <%} %>
                                                         <td>$<%=precioNocheHab%></td>
                                                         <td class="align-content-center">
                                                             <button onclick="rellenarModalEdit(<%=nroHab%>)" type="button" class="btn bg-gray-dark btn-xs"><i class="far fa-edit"></i></button>
                                                             <button onclick="rellenarModalDelete(<%=nroHab%>)" type="button" class="btn btn-danger btn-xs"><i class="far fa-trash-alt"></i></button>
+                                                            <% if (estado) { %>
+                                                            <button id="<%=nroHab%>" 
+                                                                    onclick="rellenarModalBaja(<%=nroHab%>)"
+                                                                    type="button"
+                                                                    class="btn btn-danger btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-baja">
+                                                                <i class="fas fa-chevron-down"></i>
+                                                            </button>
+                                                        <% }else{ %>
+                                                            <button id="<%=nroHab%>" 
+                                                                    onclick="rellenarModalAlta(<%=nroHab%>)"
+                                                                    type="button"
+                                                                    class="btn btn-success btn-xs"
+                                                                    data-toggle="modal"
+                                                                    data-target="#modal-lg-alta">
+                                                                <i class="fas fa-chevron-up"></i>
+                                                            </button>  
+                                                        <% } %>
                                                         </td>
                                                     </tr>  
                                                     <%
@@ -222,7 +250,12 @@
                         'action': 'delete',
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        if (data.at(-1) == "dependencia"){
+                            document.getElementById('cardErroresDEL').removeAttribute("hidden");
+                            document.getElementById('erroresFormDEL').innerHTML = "Existen registros que dependen de éste. No puede ser eliminado"; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
                     }
                 });
             }
@@ -244,6 +277,90 @@
                     }
                 });
             }
+            
+            function addObjeto(){
+                /* console.log(document.getElementById('nroHabitacion').value);
+                console.log(document.getElementById('pisoHabitacion').value);
+                console.log(document.getElementById('tipoHabitacion').value);
+                console.log(document.getElementById('precioNocheHabitacion').value); */
+                
+                $.ajax({
+                    url: '../../SvHabitacion', 
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'action': 'add',
+                        'nroHabitacion' : document.getElementById('nroHabitacion').value,
+                        'pisoHabitacion' : document.getElementById('pisoHabitacion').value,
+                        'tipoHabitacion' : document.getElementById('tipoHabitacion').value,
+                        'precioNocheHabitacion' : document.getElementById('precioNocheHabitacion').value,
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.at(-1) == "repetido"){
+                            document.getElementById('cardErroresADD').removeAttribute("hidden");
+                            document.getElementById('erroresFormADD').innerHTML = "Ya existe un registro igual a este."; 
+                        } else {
+                            location.replace(data.at(-1));
+                        }
+                    }
+                });
+            }
+            
+            function rellenarModalBaja(idObj){
+                console.log(idObj);
+                // Setea id de objeto en el botón de cerrar (modal baja)
+                buttonD = document.getElementById('buttonBaja');
+                buttonD.setAttribute("idObj", idObj); 
+                
+                // Genera mensaje de confirmación en modal baja y lo muestra
+                pElement = document.getElementById('formMensajeBAJA');
+                pElement.innerHTML = "¿Está seguro que desea dar de baja a la Habitación '" + idObj +"'?";
+                $('#modal-lg-baja').modal('show');
+            }
+            
+            function rellenarModalAlta(idObj){
+                console.log(idObj);
+                // Setea id de objeto en el botón de cerrar (modal ALTA)
+                buttonD = document.getElementById('buttonAlta');
+                buttonD.setAttribute("idObj", idObj); 
+                
+                // Genera mensaje de confirmación en modal ALTA y lo muestra
+                pElement = document.getElementById('formMensajeALTA');
+                pElement.innerHTML = "¿Está seguro que desea dar de baja a la Habitación '" + idObj +"'?";
+                $('#modal-lg-alta').modal('show');
+            }
+            
+            function bajaObjeto_habitacion(objID){
+                $.ajax({
+                    url: '../../SvHabitacion',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'nroHabitacion': objID.getAttribute("idObj"),
+                        'action': 'baja',
+                    },
+                    success: function (data) {
+                        location.replace(data.at(-1));
+                    }
+                });
+            }
+            
+            function altaObjeto_habitacion(objID){
+                $.ajax({
+                    url: '../../SvHabitacion',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'nroHabitacion': objID.getAttribute("idObj"),
+                        'action': 'alta',
+                    },
+                    success: function (data) {
+                        location.replace(data.at(-1));
+                    }
+                });
+            }
+            
         </script>
     </body>
 </html>

@@ -171,12 +171,13 @@
         <script>
             
             function addObjeto(){
+                /*
                 console.log(document.getElementById('dniEmpleadoADD').value);
                 console.log(document.getElementById('fechaNacEmpleadoADD').value);
                 console.log(document.getElementById('apellidoEmpleadoADD').value);
                 console.log(document.getElementById('nombreEmpleadoADD').value);
                 console.log(document.getElementById('cargoEmpleadoADD').value);
-                console.log(document.getElementById('direccionEmpleadoADD').value);
+                console.log(document.getElementById('direccionEmpleadoADD').value); */
                 
                 $.ajax({
                     url: '../../SvEmpleado', 
@@ -250,7 +251,7 @@
                         'action': 'delete',
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        location.replace(data.at(-1));
                     }
                 });
             }
@@ -266,12 +267,12 @@
                         'fechaNac' : document.getElementById('fechaNacEmp_edit').value,
                         'apellido' : document.getElementById('apellido_edit').value,
                         'nombre' : document.getElementById('nombre_edit').value,
-                        'cargo' : document.getElementById('defaultCargo_edit').value,
+                        'cargo' : document.getElementById('cargoEmpleado_edit').value,
                         'telefono' : document.getElementById('telefono_edit').value,
                         'direccion': document.getElementById('direccion_edit').value
                     },
                     success: function (data) {
-                        location.replace(data[0]);
+                        location.replace(data.at(-1));
                     }
                 });
             }

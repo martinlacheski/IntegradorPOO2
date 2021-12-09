@@ -13,6 +13,7 @@ public class Habitacion implements Serializable{
     @Basic
     String piso;
     int precioNoche;
+    boolean estado;
     
     @OneToOne
     TipoHabitacion tipo;
@@ -20,10 +21,11 @@ public class Habitacion implements Serializable{
     public Habitacion() {
     }
 
-    public Habitacion(int nroHab, String piso, int precioNoche, TipoHabitacion tipo) {
+    public Habitacion(int nroHab, String piso, int precioNoche, boolean estado, TipoHabitacion tipo) {
         this.nroHab = nroHab;
         this.piso = piso;
         this.precioNoche = precioNoche;
+        this.estado = estado;
         this.tipo = tipo;
     }
 
@@ -49,6 +51,14 @@ public class Habitacion implements Serializable{
 
     public void setPrecioNoche(int precioNoche) {
         this.precioNoche = precioNoche;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public TipoHabitacion getTipo() {

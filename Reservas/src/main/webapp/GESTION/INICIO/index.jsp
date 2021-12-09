@@ -14,21 +14,6 @@
             <%@include file="../../GENERALES/navbar.jsp"%>
             <!-- /.navbar -->
 
-            <!-- MODAL ADD USUARIO -->
-            <%@include file="../ADD/UsuarioModalADD.jsp"%>
-
-            <!-- MODAL EDITAR USUARIO -->
-            <%@include file="../EDIT/UsuarioModalEDIT.jsp"%>
-
-            <!-- MODAL ELIMINAR USUARIO -->
-            <%@include file="../DEL/UsuarioModalDELETE.jsp"%>
-            
-            <!-- MODAL BAJA USUARIO -->
-            <%@include file="../DEL/UsuarioModalBAJA.jsp"%>
-            
-            <!-- MODAL ALTA USUARIO -->
-            <%@include file="../DEL/UsuarioModalALTA.jsp"%>
-
             <!-- MAIN CONTENT -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
@@ -36,7 +21,7 @@
                     <div class="container">
                         <div class="row mb-2">
                             <div class="col-sm-9">
-                                <h1> Gestión de Usuarios</h1>
+                                <h1> BIENVENIDO </h1>
                             </div>
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -48,97 +33,7 @@
                     <div class="container">
                         <!-- TABLA DE LIST -->
                         <div class="card">
-                            <div class=" card-header bg-primary">
-                                <p class="card-title" style="margin-top: 8px;"> Usuarios registrados en el Sistema</p>
-                                <button id="btnADDShowModal" type="button" class="float-right btn btn-success" data-toggle="modal" data-target="#modal-lg-crear">
-                                    Agregar Nuevo Usuario
-                                    <i class="fas fa-user-plus"></i>
-                                </button>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <div class="dataTables_wrapper dt-bootstrap4">
-                                    <div class="row">
 
-                                        <div class="col-sm-12">
-                                            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:30%">Nombre Usuario</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:30%">Empleado Asociado</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="width:15%">Estado</th>
-                                                        <th tabindex="0"  rowspan="1" colspan="1" style="width:15%">Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <%
-                                                        boolean estado;
-                                                        String nombre_usuario;
-                                                        String empleado_asociado;
-                                                        ControladoraLogica controlUser = new ControladoraLogica();
-                                                        List<Usuario> listaUsuarios = controlUser.listaUsers();
-                                                        for (Usuario user : listaUsuarios) {
-                                                            nombre_usuario = user.getNombreUsuario();
-                                                            empleado_asociado = user.getEmpleadoAsoc().toString();
-                                                            estado = user.isEstado();
-                                                    %>
-                                                    <tr id="<%=nombre_usuario%>" class="odd">
-                                                        <td class="dtr-control sorting_1" tabindex="0"><%=nombre_usuario%></td>
-                                                        <td><%=empleado_asociado%></td>
-                                                        <% if (estado){ %>
-                                                            <td><small class="badge badge-success">Activo</small></td>
-                                                        <% }else { %>
-                                                            <td><span class="badge badge-danger">Inactivo</span></td>
-                                                        <%} %>
-                                                        <td class="align-content-center">
-                                                            <button id="<%=nombre_usuario%>"
-                                                                    onclick="rellenarModalEdit(<%=nombre_usuario%>)"
-                                                                    type="button"
-                                                                    class="btn btn-warning btn-xs"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modal-lg-edit">
-                                                                <i class="far fa-edit">
-                                                                </i>
-                                                            </button>
-                                                        <% if (estado) { %>
-                                                            <button id="<%=nombre_usuario%>" 
-                                                                    onclick="rellenarModalBaja(<%=nombre_usuario%>)"
-                                                                    type="button"
-                                                                    class="btn btn-danger btn-xs"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modal-lg-baja">
-                                                                <i class="fas fa-chevron-down"></i>
-                                                            </button>
-                                                        <% }else{ %>
-                                                            <button id="<%=nombre_usuario%>" 
-                                                                    onclick="rellenarModalAlta(<%=nombre_usuario%>)"
-                                                                    type="button"
-                                                                    class="btn btn-success btn-xs"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modal-lg-alta">
-                                                                <i class="fas fa-chevron-up"></i>
-                                                            </button>  
-                                                        <% } %>
-                                                            <button id="<%=nombre_usuario%>" 
-                                                                    onclick="rellenarModalDelete(<%=nombre_usuario%>)"
-                                                                    type="button"
-                                                                    class="btn btn-danger btn-xs"
-                                                                    data-toggle="modal"
-                                                                    data-target="#modal-lg-delete">
-                                                                <i class="far fa-trash-alt"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>  
-
-                                                    <%}
-                                                        nombre_usuario = "";
-                                                    %>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 

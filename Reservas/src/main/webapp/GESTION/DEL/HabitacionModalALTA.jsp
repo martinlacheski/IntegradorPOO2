@@ -1,9 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="modal fade" id="modal-lg-delete" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal-lg-alta" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-danger color-palette">
-                <h4 class="modal-title" >Eliminar Habitación</h4>
+            <div class="modal-header bg-success color-palette">
+                <h4 class="modal-title" >Dar de alta a la Habitación</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <div class="card-body">
                     <div class="form-group">
-                        <p id="formMensajeDELETE"></p>
+                        <p id="formMensajeALTA"></p>
                     </div>
                 </div>
                     
@@ -22,14 +22,14 @@
                     <p id="erroresFormDEL"> </p>
                             
                 </div>
-                
+                        
                 <div class="card-footer">
-                    <button id="buttonDelete" type="button" idObj="" onclick="eliminarObjeto(this)" class="btn btn-danger float-right">Eliminar</button>
+                    <button id="buttonAlta" type="button" idObj="" onclick="altaObjeto_habitacion(this)" class="btn btn-success float-right">Dar de Alta</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">Cerrar</span>
                     </button>
                 </div>
-                
+                    
             </div>
         </div>
     </div>

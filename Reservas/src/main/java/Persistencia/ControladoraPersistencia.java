@@ -26,7 +26,7 @@ public class ControladoraPersistencia {
     static UsuarioJpaController userJPA = new UsuarioJpaController();
     static HuespedJpaController huesJPA = new HuespedJpaController();
     static ReservaJpaController ReserJPA = new ReservaJpaController();
-
+    
     public ControladoraPersistencia() {
     }
     
@@ -68,13 +68,18 @@ public class ControladoraPersistencia {
     }
     
     // HABITACION
-    public void persistirHabitacion(Habitacion objetoHabitacion) {
+    public String persistirHabitacion(Habitacion objetoHabitacion) {
         try {
             habJPA.create(objetoHabitacion);
-        } catch (Exception ex) {
+            return "ok";
+        }catch (PreexistingEntityException e){
+            return "repetido";
+        }catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
+    
     
     public List getHabitaciones() {
         List<Habitacion> HabitacionesDesdeBD;
@@ -89,6 +94,14 @@ public class ControladoraPersistencia {
     }
     
     public void editarHabitacion(Habitacion objetoHabitacion) throws Exception {
+        habJPA.edit(objetoHabitacion);
+    }
+    
+    public void bajaHabitacionBd(Habitacion objetoHabitacion) throws Exception {
+        habJPA.edit(objetoHabitacion);
+    }
+    
+    public void altaHabitacionBd(Habitacion objetoHabitacion) throws Exception {
         habJPA.edit(objetoHabitacion);
     }
     
@@ -108,34 +121,34 @@ public class ControladoraPersistencia {
         }
         return null;
     }
-        
-
+    
+    
     public void bajaEmpleadoBd(Empleado objEmp) throws Exception {
         empJPA.edit(objEmp);
     }
-
+    
     public Empleado getEmpleado(int dni) {
         Empleado empDesdeBD = empJPA.findEmpleado(dni);
         return empDesdeBD;
     }
-
+    
     public List getEmpleados() {
         List<Empleado> EmpleadosDesdeBD = empJPA.findEmpleadoEntities();
         return EmpleadosDesdeBD;
     }
-
+    
     public void altaEmpleadoBd(Empleado objEmp) throws Exception {
-         empJPA.edit(objEmp);
+        empJPA.edit(objEmp);
     }
-
+    
     public void editarEmpleado(Empleado objEmp) throws Exception {
-         empJPA.edit(objEmp);
+        empJPA.edit(objEmp);
     }
     
     public void eliminarEmpleado(int idEmp) throws NonexistentEntityException {
         empJPA.destroy(idEmp);
     }
-
+    
     
     // CARGO
     public String persistirCargo(Cargo objetoCargo){
@@ -154,18 +167,18 @@ public class ControladoraPersistencia {
         Cargo cargoDesdeBD = cargoJPA.findCargo(nombre);
         return cargoDesdeBD;
     }
-
+    
     public List getCargos() {
         List<Cargo> CargosDesdeBD = cargoJPA.findCargoEntities();
         return CargosDesdeBD;
     }
-
+    
     public void eliminarCargo(String nombre) throws NonexistentEntityException {
-         cargoJPA.destroy(nombre);
+        cargoJPA.destroy(nombre);
     }
-
+    
     public void editarCargo(Cargo objCargo) throws Exception {
-         cargoJPA.edit(objCargo);
+        cargoJPA.edit(objCargo);
     }
     
     
@@ -186,16 +199,16 @@ public class ControladoraPersistencia {
         Usuario userDesdeBD = userJPA.findUsuario(nombreUser);
         return userDesdeBD;
     }
-
+    
     public List getUsuarios() {
         List<Usuario> usuariosDesdeBD = userJPA.findUsuarioEntities();
         return usuariosDesdeBD;
     }
-
+    
     public void eliminarUsuario(String nombreUser) throws NonexistentEntityException {
         userJPA.destroy(nombreUser);
     }
-
+    
     public void editarUsuario(Usuario objUsuario) throws Exception {
         userJPA.edit(objUsuario);
     }
@@ -205,7 +218,7 @@ public class ControladoraPersistencia {
         usuarioDesdeBD = userJPA.getUsuarioByEmpDNI(emp);
         return usuarioDesdeBD;
     }
-
+    
     
     // HUESPED
     public String persistirHuesped(Huesped objHuesped) {
@@ -219,20 +232,20 @@ public class ControladoraPersistencia {
         }
         return null;
     }
-
+    
     public Huesped getHuesped(int dni) {
         Huesped huesDesdeBD = huesJPA.findHuesped(dni);
         return huesDesdeBD;
     }
-
+    
     public List getHuespedes() {
         List<Huesped> HuespedesDesdeBD = huesJPA.findHuespedEntities();
         return HuespedesDesdeBD;
     }
-
-
+    
+    
     public void editarHuesped(Huesped objHues) throws Exception {
-         huesJPA.edit(objHues);
+        huesJPA.edit(objHues);
     }
     
     public void eliminarHuesped(int idHues) throws NonexistentEntityException {
@@ -244,16 +257,16 @@ public class ControladoraPersistencia {
     public void persistirReserva(Reserva objetoReserva) {
         ReserJPA.create(objetoReserva);
     }
-
+    
     public Reserva getReserva(int id) {
         Reserva reserDesdeBD = ReserJPA.findReserva(id);
         return reserDesdeBD;
     }
-
+    
     public void persistirBajaReserva(Reserva objetoReserva) throws Exception {
         ReserJPA.edit(objetoReserva);
     }
-
+    
     public List getReservas() {
         List<Reserva> ReservasDesdeBD = ReserJPA.findReservaEntities();
         return ReservasDesdeBD;

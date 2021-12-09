@@ -37,7 +37,7 @@
                         <div class="row">
                               <div class="col-6">
                                  <label for="apellido">Cargo:</label>
-                                <select name="cargo" class="disabled form-control">
+                                <select id="cargoEmpleado_edit" name="cargo" class="disabled form-control">
                                     <option id="defaultCargo_edit" value="---"> --- </option>
                                     <% 
                                         String nombreCargo_edit;
@@ -59,9 +59,6 @@
                         </div>
                             <label for="direccion">Dirección:</label>
                             <input id="direccion_edit" type="text" class="form-control" name="direccion"><br>
-
-                            
-                            
                     </div>
 
                     <!-- Errores -->

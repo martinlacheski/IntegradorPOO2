@@ -17,17 +17,17 @@
                         <div class="form-group">
                             <label for="nroHabitacion">NÚMERO HABITACIÓN:</label>
                             <input id="nroHabitacion" type="text" 
-                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                                    class="form-control" name="nroHabitacion"><br>
 
                            <label for="pisoHabitacion">PISO HABITACIÓN:</label>
                             <input id="pisoHabitacion" type="text" 
-                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');" 
                                    class="form-control" name="pisoHabitacion"><br>
 
                             <div class="form-group">
                                 <label>TIPO HABITACIÓN:</label>
-                                <select name="tipoHabitacion" class="disabled form-control">
+                                <select id="tipoHabitacion" name="tipoHabitacion" class="disabled form-control">
                                     <option value="---"> --- </option>
                                     <% 
                                         String tipoHab;
@@ -43,24 +43,24 @@
                                 </select>
                             </div>
                             <label for="precioNocheHabitacion">PRECIO POR NOCHE ($$$)</label>
-                            <input autocomplete="off" value=""
+                            <input id="precioNocheHabitacion" autocomplete="off" value=""
                                    type="text"
-                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
                                    class="form-control" name="precioNocheHabitacion">
                         </div>
                     </div>
 
-                    <!-- Errores -->
-                    <div id="cardErrores" hidden class="alert alert-danger alert-dismissible">
+                     <!-- Errores -->
+                    <div id="cardErroresADD" hidden class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h5><i class="icon fas fa-ban"></i> Errores Detectados</h5>
-                        <p id="erroresForm"> </p>
+                        <p id="erroresFormADD"> </p>
 
                     </div>
 
 
                     <div class="card-footer">
-                        <button id ="btnAddHabitacion" type="submit" class="btn btn-primary float-right">Agregar Habitación</button>
+                        <button onclick="addObjeto()" id="btnAddHabitacion" type="button" class="btn btn-primary float-right">Agregar Habitación</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">Cerrar</span>
                         </button>

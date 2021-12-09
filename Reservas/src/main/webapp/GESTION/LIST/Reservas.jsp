@@ -92,6 +92,7 @@
                                                         style="width: 100%;" class="form-control checks checkCantPer">
                                                     <option> --- </option>
                                                     <%
+                                                        boolean estado;
                                                         int nroHab;
                                                         String pisoHab;
                                                         String tipoHab;
@@ -105,9 +106,15 @@
                                                             tipoHab = hab.getTipo().toString();
                                                             capacidad = hab.getTipo().getCapacidadPersonas();
                                                             precioNoche = hab.getPrecioNoche();
+                                                            estado = hab.isEstado();
                                                     %>
-                                                    <option class="checks opcionesHabitaciones" value="<%=nroHab%>" precio="<%=precioNoche%>" capacidad="<%=capacidad%>"> Habitación <%=nroHab%>, Piso <%=pisoHab%>, Capacidad <%=capacidad%> </option>
-                                                    <% }%>
+                                                        <% if (estado) { %>
+                                                            <option class="checks opcionesHabitaciones" value="<%=nroHab%>"
+                                                                    precio="<%=precioNoche%>"
+                                                                    capacidad="<%=capacidad%>"> Habitación <%=nroHab%>, Piso <%=pisoHab%>, Capacidad <%=capacidad%>
+                                                            </option>
+                                                        <% } %>
+                                                    <% } %>
                                                 </select>
                                             </div>
                                         </div>
@@ -189,7 +196,7 @@
                                                 <tbody>
                                                     <%  
                                                         int idReser;
-                                                        boolean estado;
+                                                        boolean estado_2;
                                                         LocalDate checkInReser;
                                                         LocalDate checkOutReser;
                                                         int habitacion;
@@ -198,7 +205,7 @@
                                                         List<Reserva> listaReservas = controlReser.listaReservas();
                                                         for (Reserva reser : listaReservas) {
                                                             idReser = reser.getIdReserva();
-                                                            estado = reser.getEstado();
+                                                            estado_2 = reser.getEstado();
                                                             checkInReser = reser.getCheckIn();
                                                             checkOutReser = reser.getCheckOut();
                                                             habitacion = reser.getHabReservada().getNroHab();
@@ -207,7 +214,7 @@
                                                     %>
                                                     <tr class="odd">
                                                         <td class="dtr-control sorting_1" tabindex="0"><%=idReser%></td>
-                                                        <% if (estado){ %>
+                                                        <% if (estado_2){ %>
                                                             <td><small class="badge badge-success">Activa</small></td>
                                                         <% }else { %>
                                                             <td><span class="badge badge-danger">Inactiva</span></td>
@@ -217,7 +224,7 @@
                                                         <td><%=habitacion%></td>
                                                         <td><%=huespedReser%></td>
                                                         <td class="align-content-center">
-                                                             <% if (estado){ %>
+                                                             <% if (estado_2){ %>
                                                             <button onclick='rellenarModalBaja(<%=idReser%>)' class="bajaReserva btn bg-danger btn-xs"
                                                                     data-toggle="modal" data-target="#modal-lg-delete">
                                                                 <i class="fas fa-minus-circle"></i> Dar de baja</button>
@@ -376,13 +383,42 @@
             </script>
             
             <script>
-                //check de fechas
+                //check de fechasm función auxiliar
                 Date.prototype.isValid = function () {
                     return this.getTime() === this.getTime();
                 }; 
                 
                 // Generación de precio de Reserva y checks
                 $(".checks").on("click focus blur", function(){
+                    chequearFechas();
+                });
+                
+                // Control de cantidad de Personas
+                $(".checkCantPer").on("click focus blur keyup", function(){
+                    controlarCantPersonas();
+                })
+                
+                function controlarCantPersonas(){
+                     // Escondemos errores
+                    document.getElementById('pErrorCantPersonas').setAttribute('hidden', '');
+                    document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
+                    
+                    cant_personas_hab = $('#habAReservar option:selected').attr('capacidad');
+                    cant_personas_reser = document.getElementById('cantPersonas').value;
+                    
+                    // Muestra errores y desactiva botón de reserva
+                    if (cant_personas_hab && cant_personas_reser){
+                        if (parseInt(cant_personas_hab) < parseInt(cant_personas_reser)){
+                            document.getElementById('pErrorCantPersonas').removeAttribute('hidden');
+                            document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
+                            return false;
+                        }
+                    }else{
+                        return true;
+                    }
+                }
+                
+                function chequearFechas(){
                     // Escondemos errores
                     document.getElementById('pErrorFechaSalidaMenor').setAttribute('hidden', '');
                     document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
@@ -400,37 +436,46 @@
                         if (checkIn <= checkOut){
                             cant_dias_reserva = parseInt((checkOut - checkIn) / (1000 * 60 * 60 * 24), 10);  
                             document.getElementById('precioReserva').setAttribute("value", cant_dias_reserva * parseInt(preciohab));
+                            return true;
                         } else{
                             // Se desabilita el botón de generar reserva y se muestra el error
                             document.getElementById('pErrorFechaSalidaMenor').removeAttribute('hidden');
                             document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
+                            return false;
                         }
                     }
-                });
-                
-                // Control de cantidad de Personas
-                $(".checkCantPer").on("click focus blur keyup", function(){
-                     // Escondemos errores
-                    document.getElementById('pErrorCantPersonas').setAttribute('hidden', '');
-                    document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right" )
-                    
-                    cant_personas_hab = $('#habAReservar option:selected').attr('capacidad');
-                    cant_personas_reser = document.getElementById('cantPersonas').value;
-                    
-                    // Muestra errores y desactiva botón de reserva
-                    if (cant_personas_hab && cant_personas_reser){
-                        if (parseInt(cant_personas_hab) < parseInt(cant_personas_reser)){
-                            document.getElementById('pErrorCantPersonas').removeAttribute('hidden');
-                            document.getElementById('btnAddReserva').setAttribute("class", "ml-2 btn btn-success float-right disabled");
-                        }
-                    }
-                })
+                }
                 
                 
                     
                 function generarReserva(){
-                    document.getElementById('pErrorOverlap').setAttribute("hidden", "");
-                    
+                    if (!chequearFechas() || !controlarCantPersonas()){
+                        console.log("algo");
+                    }else{
+                        document.getElementById('pErrorOverlap').setAttribute("hidden", "");
+                            $.ajax({
+                                url: '../../SvReserva', 
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    'action': 'add',
+                                    'huesped' : document.getElementById('huesResponsable').value,
+                                    'cant_personas' : document.getElementById('cantPersonas').value,
+                                    'habAReservar' : document.getElementById('habAReservar').value,
+                                    'checkIn' : document.getElementById('checkIn').value,
+                                    'checkOut' : document.getElementById('checkOut').value,
+                                    'precioReserva' : document.getElementById('precioReserva').value,
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                    if (data.at(-1) == "superposicion"){
+                                        document.getElementById('pErrorOverlap').removeAttribute("hidden");
+                                    } else {
+                                        location.replace(data.at(-1));
+                                    }
+                                }
+                            });
+                    }
                     /*
                     console.log(document.getElementById('huesResponsable').value);
                     console.log(document.getElementById('cantPersonas').value);
@@ -439,30 +484,6 @@
                     console.log(document.getElementById('checkOut').value);
                     console.log(document.getElementById('precioReserva').value);
                     */
-                    
-                    
-                    $.ajax({
-                        url: '../../SvReserva', 
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            'action': 'add',
-                            'huesped' : document.getElementById('huesResponsable').value,
-                            'cant_personas' : document.getElementById('cantPersonas').value,
-                            'habAReservar' : document.getElementById('habAReservar').value,
-                            'checkIn' : document.getElementById('checkIn').value,
-                            'checkOut' : document.getElementById('checkOut').value,
-                            'precioReserva' : document.getElementById('precioReserva').value,
-                        },
-                        success: function (data) {
-                            console.log(data);
-                            if (data.at(-1) == "superposicion"){
-                                document.getElementById('pErrorOverlap').removeAttribute("hidden");
-                            } else {
-                                location.replace(data.at(-1));
-                            }
-                        }
-                    });
                 }
                 
                 function rellenarModalBaja(idObj){
@@ -477,8 +498,6 @@
                 }
                 
                 function eliminarObjeto_Reserva(e){
-                    console.log(e.getAttribute("idObj"));
-                    
                     $.ajax({
                         url: '../../SvReserva', 
                         type: 'POST',
@@ -492,8 +511,6 @@
                         }
                     });
                 }
-                
-                    
             </script>
 
     </body>
