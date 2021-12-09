@@ -491,7 +491,6 @@
                     console.log(fechaOk);
                     console.log(cantPersonasOk);
                      console.log(chequearHuesped());
-                    /*
                     if (fechaOk && cantPersonasOk){
                        $.ajax({
                             url: '../../SvReserva', 
@@ -515,7 +514,7 @@
                                 }
                             }
                         });
-                   }  */
+                   }
                 }
                
                 function rellenarModalBaja(idObj){
